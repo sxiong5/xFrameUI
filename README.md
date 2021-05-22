@@ -1,5 +1,6 @@
 # x-frame-ui
-A Vue.js 2.x UI Frame for Web
+**A Vue.js 2.x UI Frame for Web**
+*@by Shihao Xiong*
 
 ## Install 
 ```
