@@ -1,12 +1,12 @@
 import { VueConstructor } from 'vue';
-import XDragList from './XDragList/index';
+import DragList from './DragList/index';
 
 interface Component {
 	[prop: string]: unknown;
 	install: (Vue: VueConstructor) => void;
 }
 
-const components = [XDragList];
+const components = [DragList];
 
 const install = (Vue: VueConstructor) => {
 	components.forEach(component => Vue.component(component.entryName, component));
@@ -19,5 +19,5 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
 	install,
-	XDragList
+	DragList
 } as Component;

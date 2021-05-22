@@ -1,21 +1,19 @@
 {
-	"name": "x-drag-list",
+	"name": "x-frame-ui",
 	"version": "0.1.0",
 	"private": false,
-	"description": "Vue拖拽排序列表组件",
-	"main": "lib/x-drag-list.common.js",
-	"style": "lib/x-drag-list.css",
+	"description": "A Vue.js 2.x UI Frame for Web",
+	"main": "lib/x-frame-ui.umd.min.js",
 	"author": "xsh<shihao.xiong@icloud.com>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ShihaoXiong/XDragList.git"
+		"url": "git+https://github.com/ShihaoXiong/xFrameUI.git"
 	},
 	"bugs": {
-		"url": "https://github.com/ShihaoXiong/XDragList/issues"
+		"url": "https://github.com/ShihaoXiong/xFrameUI/issues"
 	},
 	"keywords": [
-		"XDragList",
-		"TypeScript"
+		"x-frame-ui"
 	],
 	"files": [
 		"lib",
@@ -25,7 +23,7 @@
 		"serve": "vue-cli-service serve --open",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
-		"lib": "vue-cli-service build --target lib --name x-drag-list --dest lib src/components/index.ts"
+		"lib": "vue-cli-service build --target lib --name x-frame-ui --dest lib src/components/index.ts"
 	},
 	"dependencies": {
 		"core-js": "^3.6.5",
