@@ -1,0 +1,51 @@
+{
+	"name": "x-drag-list",
+	"version": "0.1.0",
+	"private": false,
+	"description": "Vue拖拽排序列表组件",
+	"main": "lib/x-drag-list.common.js",
+	"style": "lib/x-drag-list.css",
+	"author": "xsh<shihao.xiong@icloud.com>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ShihaoXiong/XDragList.git"
+	},
+	"bugs": {
+		"url": "https://github.com/ShihaoXiong/XDragList/issues"
+	},
+	"keywords": [
+		"XDragList",
+		"TypeScript"
+	],
+	"files": [
+		"lib",
+		"src/components"
+	],
+	"scripts": {
+		"serve": "vue-cli-service serve --open",
+		"build": "vue-cli-service build",
+		"lint": "vue-cli-service lint",
+		"lib": "vue-cli-service build --target lib --name x-drag-list --dest lib src/components/index.ts"
+	},
+	"dependencies": {
+		"core-js": "^3.6.5",
+		"vue": "^2.6.11",
+		"vue-class-component": "^7.2.3",
+		"vue-property-decorator": "^9.1.2"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.18.0",
+		"@typescript-eslint/parser": "^4.18.0",
+		"@vue/cli-plugin-babel": "~4.5.0",
+		"@vue/cli-plugin-eslint": "~4.5.0",
+		"@vue/cli-plugin-typescript": "~4.5.0",
+		"@vue/cli-service": "~4.5.0",
+		"@vue/eslint-config-typescript": "^7.0.0",
+		"eslint": "^6.7.2",
+		"eslint-plugin-vue": "^6.2.2",
+		"less": "^3.0.4",
+		"less-loader": "^5.0.0",
+		"typescript": "~4.1.5",
+		"vue-template-compiler": "^2.6.12"
+	}
+}
