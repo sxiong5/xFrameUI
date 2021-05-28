@@ -8,8 +8,8 @@
 			</div>
 
 			<div>
-				<XButton class="btn-start" size="large" round>Get Start</XButton>
-				<XButton class="btn-more" size="large" round>Learn More</XButton>
+				<XButton class="btn-start" size="large" round animation>Get Start</XButton>
+				<XButton class="btn-more" size="large" round animation>Learn More</XButton>
 			</div>
 		</div>
 		<div></div>
@@ -58,6 +58,9 @@ export default class Introduction extends Vue {}
 	.btn-start {
 		background: @theme-green;
 		color: @theme-dblue;
+		&:hover {
+			background: darken(@theme-green, 10%);
+		}
 	}
 	.btn-more {
 		background: none;
