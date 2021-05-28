@@ -1,5 +1,5 @@
 import { VueConstructor } from 'vue';
-import DragList from './DragList/index';
+import DragList from './DragList';
 
 interface Component {
 	[prop: string]: unknown;
@@ -18,6 +18,6 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-	install,
-	DragList
+	DragList,
+	install
 } as Component;

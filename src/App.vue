@@ -1,26 +1,21 @@
 <template>
-	<div id="app">
-		<XDragList v-model="data" />
-	</div>
+	<div id="app"></div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
 @Component
-export default class App extends Vue {
-	data: Array<string> = ['demoItem1', 'demoItem2', 'demoItem3', 'demoItem4', 'demoItem5', 'demoItem6', 'demoItem7'];
-}
+export default class App extends Vue {}
 </script>
 
 <style lang="less">
 #app {
+	.size(100vw, 100vh);
 	font-family: Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	margin-top: 60px;
-	width: 100%;
 }
 </style>

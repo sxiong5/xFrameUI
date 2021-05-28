@@ -3,28 +3,18 @@
 	"version": "0.1.0",
 	"private": false,
 	"description": "A Vue.js 2.x UI Frame for Web",
-	"main": "lib/x-frame-ui.umd.min.js",
 	"author": "xsh<shihao.xiong@icloud.com>",
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/ShihaoXiong/xFrameUI.git"
-	},
-	"bugs": {
-		"url": "https://github.com/ShihaoXiong/xFrameUI/issues"
-	},
-	"keywords": [
-		"x-frame-ui"
-	],
-	"files": [
-		"lib",
-		"src/components"
-	],
 	"scripts": {
 		"serve": "vue-cli-service serve --open",
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
-		"lib": "vue-cli-service build --target lib --name x-frame-ui --dest lib src/components/index.ts"
+		"lib": "vue-cli-service build --target lib --name x-frame-ui --dest lib packages/index.ts"
 	},
+	"main": "lib/x-frame-ui.umd.min.js",
+	"files": [
+		"lib",
+		"packages"
+	],
 	"dependencies": {
 		"core-js": "^3.6.5",
 		"vue": "^2.6.11",
@@ -43,7 +33,19 @@
 		"eslint-plugin-vue": "^6.2.2",
 		"less": "^3.0.4",
 		"less-loader": "^5.0.0",
+		"style-resources-loader": "^1.4.1",
 		"typescript": "~4.1.5",
+		"vue-cli-plugin-style-resources-loader": "~0.1.5",
 		"vue-template-compiler": "^2.6.12"
+	},
+	"bugs": {
+		"url": "https://github.com/ShihaoXiong/xFrameUI/issues"
+	},
+	"keywords": [
+		"x-frame-ui"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ShihaoXiong/xFrameUI.git"
 	}
 }

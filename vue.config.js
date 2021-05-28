@@ -1,4 +1,4 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
 	publicPath: './',
@@ -8,25 +8,21 @@ module.exports = {
 
 	configureWebpack: {
 		resolve: {
-			extensions: ['.js', '.vue', '.json', '.ts', '.tsx'] // 加入ts 和 tsx
+			extensions: ['.js', '.vue', '.json', '.ts', '.tsx']
+		}
+	},
+
+	chainWebpack: config => {
+		config.plugin('html').tap(args => {
+			args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
+			return args;
+		});
+	},
+
+	pluginOptions: {
+		'style-resources-loader': {
+			preProcessor: 'less',
+			patterns: [path.resolve(__dirname, 'src/assets/style/global.less')]
 		}
 	}
-
-	// chainWebpack: config => {
-	// 	// 更改tab页标题
-	// 	config.plugin('html').tap(args => {
-	// 		args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
-	// 		return args;
-	// 	});
-	// },
-
-	// pwa: {
-	// 	iconPaths: {
-	// 		favicon32: 'favicon.ico',
-	// 		favicon16: 'favicon.ico',
-	// 		appleTouchIcon: 'favicon.ico',
-	// 		maskIcon: 'favicon.ico',
-	// 		msTileImage: 'favicon.ico'
-	// 	}
-	// }
 };
