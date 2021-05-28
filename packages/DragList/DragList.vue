@@ -1,10 +1,10 @@
 <template>
-	<transition-group class="drag-list" name="flip-list" tag="div">
+	<transition-group class="x-drag-list" name="x-drag-list" tag="div">
 		<div
 			v-for="(item, index) in value"
 			:key="item.id || item"
 			:class="[itemClassName, { 'is-selected': selectIndex === index }]"
-			class="drag-list-item"
+			class="x-drag-list-item"
 			draggable
 			@dragstart="onDragStart(index)"
 			@dragenter="onDragEnter(index)"
@@ -21,9 +21,9 @@
  * @property {Array} value 列表数据
  * @property {String} itemClassName 列表项类名，用于覆盖默认样式
  */
-interface IDataItem {
+interface DragListItem {
 	id: string;
-	label: string;
+	label: string | number;
 	[prop: string]: unknown;
 }
 import { Vue, Component, Prop, Model } from 'vue-property-decorator';
@@ -33,8 +33,8 @@ export default class XDragList extends Vue {
 	public static entryName = 'XDragList';
 
 	@Model('update:value', { type: Array, required: true })
-	value!: Array<string | number | IDataItem>;
-	@Prop({ type: String, default: 'default-drag-list-item' })
+	value!: Array<string | number | DragListItem>;
+	@Prop({ type: String, default: 'x-drag-list-item--default' })
 	public itemClassName!: string;
 
 	// 选中项的index
@@ -75,20 +75,14 @@ export default class XDragList extends Vue {
 </script>
 
 <style lang='less' scoped>
-.flip-list-move {
+.x-drag-list-move {
 	transition: all 0.5s ease;
 }
-.drag-list {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	border: 1px solid #dcdfe6;
-	padding: 5px;
-	position: relative;
+.x-drag-list {
 	&:hover {
 		overflow-y: overlay;
 	}
-	.drag-list-item {
+	.x-drag-list-item {
 		cursor: pointer;
 		user-select: none;
 		opacity: 1;
@@ -98,10 +92,11 @@ export default class XDragList extends Vue {
 			background: #f1f3f4;
 		}
 	}
-	.default-drag-list-item {
+	.x-drag-list-item--default {
 		padding: 10px;
+		min-width: 50px;
 		border: 1px dashed #eee;
-		& + .default-drag-list-item {
+		& + .x-drag-list-item--default {
 			margin-top: 5px;
 		}
 	}

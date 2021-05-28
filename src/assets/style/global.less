@@ -4,7 +4,45 @@ body {
 	padding: 0;
 }
 
-.size(@width: 100%, @height: 100%) {
-	width: @width;
-	height: @height;
+// 主题色
+@theme-white: #f9f7f7;
+@theme-lblue: #dbe2ef;
+@theme-blue: #3f72af;
+@theme-dblue: #112d4e;
+@theme-green: #a6e4e7;
+
+@font12: 12px;
+@font14: 14px;
+@font16: 16px;
+@font18: 18px;
+@font20: 20px;
+@font30: 30px;
+
+@radius: 5px;
+
+.size(@w: 100%, @h: 100%) {
+	width: @w;
+	height: @h;
+}
+
+.flex(@d: row, @w: nowrap, @j: center, @a: center) {
+	display: flex;
+	flex-flow: @d @w;
+	justify-content: @j;
+	align-items: @a;
+}
+
+.border-box {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+
+.row-layout + .row-layout {
+	margin-left: 10px;
+}
+
+.col-layout + .col-layout {
+	margin-top: 10px;
 }
