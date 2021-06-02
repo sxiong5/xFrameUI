@@ -7,6 +7,11 @@ const routes: RouteConfig[] = [
 		component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
 	},
 	{
+		path: '/components',
+		name: 'Components',
+		component: () => import(/* webpackChunkName: "components" */ '@/views/Components/Index.vue')
+	},
+	{
 		path: '/',
 		redirect: 'home'
 	}

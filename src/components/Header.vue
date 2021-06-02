@@ -31,7 +31,7 @@ export default class HomeHeader extends Vue {
 	menus: HeaderMenu[] = [
 		{ text: 'Home', path: '/home' },
 		{ text: 'Guide', path: '' },
-		{ text: 'Components', path: '' }
+		{ text: 'Components', path: '/components' }
 	];
 }
 </script>
