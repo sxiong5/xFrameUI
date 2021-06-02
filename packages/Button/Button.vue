@@ -40,7 +40,7 @@ export default class XButton extends Vue {
 	protected clickY = '';
 	protected hasClicked = false;
 
-	protected handleClick(event: MouseEvent): void {
+	protected handleClick(event: MouseEvent) {
 		if (this.animation) {
 			this.clickX = `${event.offsetX}px`;
 			this.clickY = `${event.offsetY}px`;

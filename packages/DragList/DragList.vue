@@ -46,7 +46,7 @@ export default class XDragList extends Vue {
 	 * 鼠标按下，拖动开始
 	 * @param {number} index 拖动元素的index
 	 */
-	onDragStart(index: number): void {
+	onDragStart(index: number) {
 		this.selectIndex = index;
 	}
 
@@ -54,7 +54,7 @@ export default class XDragList extends Vue {
 	 * 拖动的元素进入该元素
 	 * @param {number} index 进入的元素的index
 	 */
-	onDragEnter(index: number): void {
+	onDragEnter(index: number) {
 		this.enterIndex = index;
 		//交换元素位置
 		[this.value[this.selectIndex as number], this.value[this.enterIndex]] = [
@@ -67,7 +67,7 @@ export default class XDragList extends Vue {
 	/**
 	 * 拖动结束
 	 */
-	onDragEnd(): void {
+	onDragEnd() {
 		this.selectIndex = null;
 		this.enterIndex = null;
 	}
