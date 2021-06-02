@@ -8,13 +8,8 @@
 			</div>
 
 			<div>
-<<<<<<< Updated upstream
-				<XButton class="btn-start" size="large" round>Get Start</XButton>
-				<XButton class="btn-more" size="large" round>Learn More</XButton>
-=======
 				<x-button class="btn-start" size="large" round animation>Get Start</x-button>
 				<x-button class="btn-more" size="large" round animation>Learn More</x-button>
->>>>>>> Stashed changes
 			</div>
 		</div>
 		<div></div>
