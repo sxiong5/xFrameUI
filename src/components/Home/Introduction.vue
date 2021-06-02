@@ -66,6 +66,9 @@ export default class Introduction extends Vue {}
 	.btn-start {
 		background: @theme-green;
 		color: @theme-dblue;
+		&:hover {
+			background: darken(@theme-green, 10%);
+		}
 	}
 	.btn-more {
 		background: none;
