@@ -1,6 +1,8 @@
 <template>
 	<div class="home-header">
-		<div></div>
+		<router-link to="/home">
+			<img class="header-logo" :src="require('@/assets/images/header-logo.png')" />
+		</router-link>
 		<div class="header-menu">
 			<router-link
 				v-for="menu in menus"
@@ -36,10 +38,17 @@ export default class HomeHeader extends Vue {
 
 <style lang='less' scoped>
 .home-header {
-	.size(calc(100% - 300px), 50px);
+	.size(90%, 50px);
 	.flex(@j: space-between);
 	background: @theme-dblue;
-	padding: 20px 150px;
+	padding: 20px 5%;
+	& > div,
+	& > a {
+		width: calc(100% / 3);
+	}
+	.header-logo {
+		width: 40%;
+	}
 	.header-menu {
 		.menu-item {
 			color: fade(@theme-white, 50);

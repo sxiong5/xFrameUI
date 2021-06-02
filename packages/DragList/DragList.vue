@@ -1,5 +1,5 @@
 <template>
-	<transition-group class="x-drag-list" name="x-drag-list" tag="div">
+	<transition-group class="x-drag-list" name="x-drag-list" tag="ul">
 		<div
 			v-for="(item, index) in value"
 			:key="item.id || item"

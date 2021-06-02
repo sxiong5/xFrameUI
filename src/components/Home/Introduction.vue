@@ -2,14 +2,19 @@
 	<div class="introduction">
 		<div class="introduction-text">
 			<div>
-				<h1>xFrame</h1>
+				<img :src="require('@/assets/images/title.png')" alt="" />
 				<h2>A Vue.js 2.x UI Lib for Web</h2>
-				<div class="text-author">@Designed By Shihao Xiong</div>
+				<div class="text-author"><i>@Designed by Shihao Xiong</i></div>
 			</div>
 
 			<div>
+<<<<<<< Updated upstream
 				<XButton class="btn-start" size="large" round>Get Start</XButton>
 				<XButton class="btn-more" size="large" round>Learn More</XButton>
+=======
+				<x-button class="btn-start" size="large" round animation>Get Start</x-button>
+				<x-button class="btn-more" size="large" round animation>Learn More</x-button>
+>>>>>>> Stashed changes
 			</div>
 		</div>
 		<div></div>
@@ -19,11 +24,19 @@
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
 
-@Component
+@Component({ name: 'Introduction' })
 export default class Introduction extends Vue {}
 </script>
 
 <style lang='less' scoped>
+.list-item {
+	padding: 10px;
+	background: @theme-lblue;
+	& + & {
+		margin-top: 10px;
+	}
+}
+
 .introduction {
 	.size(100%, auto);
 	.border-box;
@@ -39,8 +52,8 @@ export default class Introduction extends Vue {}
 .introduction-text {
 	.flex(column, nowrap, space-around, flex-start);
 	text-align: left;
-	h1 {
-		font-size: 80px;
+	img {
+		width: 400px;
 	}
 	h2 {
 		font-size: 40px;
