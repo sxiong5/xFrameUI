@@ -28,13 +28,13 @@ export default class XButton extends Vue {
 	public static entryName = 'XButton';
 
 	@Prop({ type: String, default: 'middle' })
-	size?: xFrameComponentSize;
+	size!: xFrameComponentSize;
 	@Prop({ type: Boolean, default: false })
-	round?: boolean;
+	round!: boolean;
 	@Prop({ type: String, default: 'button' })
-	nativeType?: string;
+	nativeType!: string;
 	@Prop({ type: Boolean, default: false })
-	animation?: boolean;
+	animation!: boolean;
 
 	protected clickX = '';
 	protected clickY = '';
