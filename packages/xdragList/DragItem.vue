@@ -1,5 +1,5 @@
 <template>
-	<li class="x-drag-item" @mousedown="handleMouseDown" :style="{ opacity }">
+	<li class="x-drag-item" @mousedown.stop="handleMouseDown" :style="{ opacity }">
 		<slot></slot>
 	</li>
 </template>
@@ -16,28 +16,25 @@ export default class XDragItem extends Vue {
 	@Inject('dragList')
 	readonly dragList: any;
 
-	private dragger!: HTMLElement;
+	protected dragger!: HTMLElement;
 	opacity = 1;
-	private position = { x: NaN, y: NaN };
-	private target!: HTMLElement;
+	protected position = { x: NaN, y: NaN };
+	protected target!: HTMLElement;
 
 	mounted() {
 		this.target = (document.querySelector(this.dragList.appendTo as string) as HTMLElement) ?? this.$parent.$el;
 	}
 
-	/**
-	 * 鼠标按下
-	 */
 	handleMouseDown(event: MouseEvent) {
-		const cloneNode: Node = this.$el.cloneNode(true);
-		const { clientHeight, clientWidth, offsetTop, offsetLeft, className } = this.$el as HTMLElement;
+		const cloneNode: HTMLElement = this.$el.cloneNode(true) as HTMLElement;
+		const { clientHeight, clientWidth, className } = this.$el as HTMLElement;
 		// const margin = getMargin(this.$el as HTMLElement);
 		this.position = { x: event.clientX, y: event.clientY };
 
-		this.dragger = this.target.appendChild(cloneNode as HTMLElement);
+		this.dragger = this.target.appendChild(cloneNode);
 		this.dragger.style.position = 'fixed';
-		this.dragger.style.left = `${offsetLeft}px`;
-		this.dragger.style.top = `${offsetTop}px`;
+		this.dragger.style.left = `${this.position.x - event.offsetX}px`;
+		this.dragger.style.top = `${this.position.y - event.offsetY}px`;
 		this.dragger.style.height = `${clientHeight}px`;
 		this.dragger.style.width = `${clientWidth}px`;
 		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
@@ -47,9 +44,6 @@ export default class XDragItem extends Vue {
 		document.addEventListener('mousemove', this.handleMouseMove);
 	}
 
-	/**
-	 * 鼠标移动
-	 */
 	handleMouseMove(event: MouseEvent) {
 		const { clientX, clientY } = event;
 		const offset = {
@@ -59,14 +53,12 @@ export default class XDragItem extends Vue {
 		this.dragger.style.transform = `translate(${this.dragList.lockAxis ? 0 : offset.x}px, ${offset.y}px)`;
 	}
 
-	/**
-	 * 鼠标松开
-	 */
 	handleMouseUp() {
 		document.removeEventListener('mousemove', this.handleMouseMove);
 		this.position = { x: NaN, y: NaN };
+		this.dragger.style.pointerEvents = 'none';
 		this.dragger.style.transition = 'all 0.5s ease';
-		this.dragger.style.transform = `translate(0, 0)`;
+		this.dragger.style.transform = 'translate(0, 0)';
 		setTimeout(() => {
 			this.target?.removeChild(this.dragger);
 			this.opacity = 1;
