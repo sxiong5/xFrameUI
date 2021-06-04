@@ -47,7 +47,7 @@ export default class XDragItem extends Vue {
 	}
 
 	handleMouseMove(event: MouseEvent) {
-		const { clientX, clientY, offsetY } = event;
+		const { clientX, clientY, offsetX, offsetY } = event;
 		const offset = {
 			x: clientX - this.clickPosition.x,
 			y: clientY - this.clickPosition.y
@@ -64,7 +64,7 @@ export default class XDragItem extends Vue {
 		if (Math.abs(clientY - offsetY - this.targetPosition.y) === ~~((this.$el.clientHeight * 3) / 4)) {
 			if ($index) {
 				this.dragList.handleSort(this.index, $index);
-				this.updatePosition($index);
+				this.updatePosition($index, { x: offsetX, y: offsetY });
 			}
 		}
 	}
@@ -84,7 +84,7 @@ export default class XDragItem extends Vue {
 		}, 500);
 	}
 
-	updatePosition(newIndex: number) {
+	updatePosition(newIndex: number, offsetXY: { x: number; y: number }) {
 		this.targetPosition = {
 			x: this.targetPosition.x,
 			y: this.targetPosition.y
