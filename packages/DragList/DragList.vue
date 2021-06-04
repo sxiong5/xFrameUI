@@ -35,10 +35,6 @@ export default class XDragList extends Vue {
 		this.emitChange();
 	}
 
-	mounted() {
-		setTimeout(() => this.handleSort(2, 4), 2000);
-	}
-
 	@Emit('change')
 	emitChange() {
 		return this.value;

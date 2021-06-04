@@ -18,23 +18,25 @@ export default class XDragItem extends Vue {
 
 	protected dragger!: HTMLElement;
 	protected opacity = 1;
-	protected position = { x: NaN, y: NaN };
-	protected target!: HTMLElement;
+	protected clickPosition = { x: NaN, y: NaN };
+	protected targetPosition = { x: NaN, y: NaN };
+	protected parentNode!: HTMLElement;
 
 	mounted() {
-		this.target = (document.querySelector(this.dragList.appendTo as string) as HTMLElement) ?? this.$parent.$el;
+		this.parentNode = (document.querySelector(this.dragList.appendTo as string) as HTMLElement) ?? this.$parent.$el;
 	}
 
 	handleMouseDown(event: MouseEvent) {
 		const cloneNode: HTMLElement = this.$el.cloneNode(true) as HTMLElement;
 		const { clientHeight, clientWidth, className } = this.$el as HTMLElement;
 		// const margin = getMargin(this.$el as HTMLElement);
-		this.position = { x: event.clientX, y: event.clientY };
+		this.targetPosition = { x: event.clientX - event.offsetX, y: event.clientY - event.offsetY };
+		this.clickPosition = { x: event.clientX, y: event.clientY };
 
-		this.dragger = this.target.appendChild(cloneNode);
+		this.dragger = this.parentNode.appendChild(cloneNode);
 		this.dragger.style.position = 'fixed';
-		this.dragger.style.left = `${this.position.x - event.offsetX}px`;
-		this.dragger.style.top = `${this.position.y - event.offsetY}px`;
+		this.dragger.style.left = `${this.targetPosition.x}px`;
+		this.dragger.style.top = `${this.targetPosition.y}px`;
 		this.dragger.style.height = `${clientHeight}px`;
 		this.dragger.style.width = `${clientWidth}px`;
 		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
@@ -45,24 +47,48 @@ export default class XDragItem extends Vue {
 	}
 
 	handleMouseMove(event: MouseEvent) {
-		const { clientX, clientY } = event;
+		const { clientX, clientY, offsetY } = event;
 		const offset = {
-			x: clientX - this.position.x,
-			y: clientY - this.position.y
+			x: clientX - this.clickPosition.x,
+			y: clientY - this.clickPosition.y
 		};
 		this.dragger.style.transform = `translate(${this.dragList.lockAxis ? 0 : offset.x}px, ${offset.y}px)`;
+
+		let $index!: number;
+		if (offset.y > 0 && this.index !== this.dragList.value.length - 1) {
+			$index = this.index + 1;
+		} else if (offset.y < 0 && this.index !== 0) {
+			$index = this.index - 1;
+		}
+
+		if (Math.abs(clientY - offsetY - this.targetPosition.y) === ~~((this.$el.clientHeight * 3) / 4)) {
+			if ($index) {
+				this.dragList.handleSort(this.index, $index);
+				this.updatePosition($index);
+			}
+		}
 	}
 
 	handleMouseUp() {
 		document.removeEventListener('mousemove', this.handleMouseMove);
-		this.position = { x: NaN, y: NaN };
+		this.clickPosition = { x: NaN, y: NaN };
 		this.dragger.style.pointerEvents = 'none';
 		this.dragger.style.transition = 'all 0.5s ease';
+		this.dragger.style.left = `${this.targetPosition.x}px`;
+		this.dragger.style.top = `${this.targetPosition.y}px`;
 		this.dragger.style.transform = 'translate(0, 0)';
+		this.targetPosition = { x: NaN, y: NaN };
 		setTimeout(() => {
-			this.target?.removeChild(this.dragger);
+			this.parentNode?.removeChild(this.dragger);
 			this.opacity = 1;
 		}, 500);
+	}
+
+	updatePosition(newIndex: number) {
+		this.targetPosition = {
+			x: this.targetPosition.x,
+			y: this.targetPosition.y
+		};
 	}
 }
 </script>
