@@ -17,7 +17,7 @@ export default class XDragItem extends Vue {
 	readonly dragList: any;
 
 	protected dragger!: HTMLElement;
-	opacity = 1;
+	protected opacity = 1;
 	protected position = { x: NaN, y: NaN };
 	protected target!: HTMLElement;
 

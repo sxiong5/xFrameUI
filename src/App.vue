@@ -19,5 +19,7 @@ export default class App extends Vue {}
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
+	.size(@h: 100vh);
+	overflow-y: hidden;
 }
 </style>

@@ -1,13 +1,14 @@
 import { VueConstructor } from 'vue';
-import DragList from './DragList';
 import Button from './Button';
+import DragList from './DragList';
+import DragItem from './DragItem';
 
 interface Component {
 	[prop: string]: unknown;
 	install: (Vue: VueConstructor) => void;
 }
 
-const components = [DragList, Button];
+const components = [Button, DragList, DragItem];
 
 const install = (Vue: VueConstructor) => {
 	components.forEach(component => Vue.component(component.entryName, component));
@@ -19,7 +20,8 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 export default {
-	DragList,
 	Button,
+	DragList,
+	DragItem,
 	install
 } as Component;

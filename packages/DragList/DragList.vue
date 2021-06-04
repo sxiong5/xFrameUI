@@ -1,104 +1,68 @@
 <template>
 	<transition-group class="x-drag-list" name="x-drag-list" tag="ul">
-		<div
-			v-for="(item, index) in value"
-			:key="item.id || item"
-			:class="[itemClassName, { 'is-selected': selectIndex === index }]"
-			class="x-drag-list-item"
-			draggable
-			@dragstart="onDragStart(index)"
-			@dragenter="onDragEnter(index)"
-			@dragend="onDragEnd"
-		>
-			{{ item.label || item }}
-		</div>
+		<slot></slot>
 	</transition-group>
 </template>
 
 <script lang='ts'>
 /**
- * 拖拽排序的列表
- * @property {Array} value 列表数据
- * @property {String} itemClassName 列表项类名，用于覆盖默认样式
+ * @property {Array} value 绑定数组
+ * @property {String} appendTo 将拖拽元素添加到某节点 默认#app
+ * @property {String} activeClass 拖拽元素的样式类
+ * @property {Boolean} lockAxis 限制拖拽元素在容器内移动
+ *
+ * @event change value顺序改变时触发
  */
-interface DragListItem {
-	id: string;
-	label: string | number;
-	[prop: string]: unknown;
-}
-import { Vue, Component, Prop, Model } from 'vue-property-decorator';
+import { Vue, Component, Model, Prop, Provide, Emit } from 'vue-property-decorator';
 
 @Component({ name: 'XDragList' })
 export default class XDragList extends Vue {
 	public static entryName = 'XDragList';
 
-	@Model('update:value', { type: Array, required: true })
-	value!: Array<string | number | DragListItem>;
-	@Prop({ type: String, default: 'x-drag-list-item--default' })
-	public itemClassName!: string;
+	@Model('emitChange', { type: Array, required: true })
+	value!: unknown[];
+	@Prop({ type: String, default: '#app' })
+	appendTo!: string;
+	@Prop({ type: String })
+	activeClass!: string;
+	@Prop({ type: Boolean, default: false })
+	lockAxis!: boolean;
 
-	// 选中项的index
-	selectIndex: number | null = null;
-	// 进入元素的index
-	enterIndex: number | null = null;
-
-	/**
-	 * 鼠标按下，拖动开始
-	 * @param {number} index 拖动元素的index
-	 */
-	onDragStart(index: number) {
-		this.selectIndex = index;
+	handleSort(preIndex: number, targetIndex: number) {
+		const temp = this.value[preIndex];
+		this.$set(this.value, preIndex, this.value[targetIndex]);
+		this.$set(this.value, targetIndex, temp);
+		this.emitChange();
 	}
 
-	/**
-	 * 拖动的元素进入该元素
-	 * @param {number} index 进入的元素的index
-	 */
-	onDragEnter(index: number) {
-		this.enterIndex = index;
-		//交换元素位置
-		[this.value[this.selectIndex as number], this.value[this.enterIndex]] = [
-			this.value[this.enterIndex],
-			this.value[this.selectIndex as number]
-		];
-		[this.selectIndex, this.enterIndex] = [this.enterIndex, null];
+	mounted() {
+		setTimeout(() => this.handleSort(2, 4), 2000);
 	}
 
-	/**
-	 * 拖动结束
-	 */
-	onDragEnd() {
-		this.selectIndex = null;
-		this.enterIndex = null;
+	@Emit('change')
+	emitChange() {
+		return this.value;
 	}
+
+	@Provide('dragList')
+	dragList = {
+		...this.$props,
+		handleSort: this.handleSort
+	};
 }
 </script>
 
-<style lang='less' scoped>
+<style lang="less">
 .x-drag-list-move {
 	transition: all 0.5s ease;
 }
+</style>
+<style lang='less' scoped>
 .x-drag-list {
-	&:hover {
-		overflow-y: overlay;
-	}
-	.x-drag-list-item {
-		cursor: pointer;
-		user-select: none;
-		opacity: 1;
-		&.is-selected {
-			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-			z-index: 999;
-			background: #f1f3f4;
-		}
-	}
-	.x-drag-list-item--default {
-		padding: 10px;
-		min-width: 50px;
-		border: 1px dashed #eee;
-		& + .x-drag-list-item--default {
-			margin-top: 5px;
-		}
-	}
+	.none-select;
+	margin: 0;
+	padding: 0;
+	background-color: #f3f3f3;
+	border: 1px solid #efefef;
 }
 </style>

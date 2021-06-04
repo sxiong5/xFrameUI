@@ -1,9 +1,13 @@
 <template>
 	<button
 		class="x-button row-layout"
-		:class="[`x-button--${size}`, { 'has-animation': animation && hasClicked, 'is-round': round }]"
+		:class="[
+			`x-button--${size}`,
+			{ 'has-animation': animation && hasClicked, 'is-round': round, 'is-disabled': disabled }
+		]"
 		:style="{ '--x': clickX, '--y': clickY }"
 		:type="nativeType"
+		:disabled="disabled"
 		@click="handleClick($event)"
 	>
 		<slot></slot>
@@ -15,6 +19,7 @@
  * 按钮
  * @property {String} size 按钮大小 'small' | 'middle' | 'large'
  * @property {Boolean} round 是否为圆角
+ * @property {Boolean} disabled 是否禁用
  * @property {String} nativeType 原生type  'button' | 'submit' | 'reset'
  * @property {Boolean} animation 是否开启点击动画
  *
@@ -31,6 +36,8 @@ export default class XButton extends Vue {
 	size!: xFrameComponentSize;
 	@Prop({ type: Boolean, default: false })
 	round!: boolean;
+	@Prop({ type: Boolean, default: false })
+	disabled!: boolean;
 	@Prop({ type: String, default: 'button' })
 	nativeType!: string;
 	@Prop({ type: Boolean, default: false })
@@ -70,6 +77,9 @@ export default class XButton extends Vue {
 	outline: none;
 	&.is-round {
 		border-radius: 50px !important;
+	}
+	&.is-disabled {
+		cursor: not-allowed;
 	}
 }
 .has-animation::after {
