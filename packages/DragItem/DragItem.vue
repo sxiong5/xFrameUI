@@ -6,6 +6,7 @@
 
 <script lang='ts'>
 import { Vue, Component, Inject, Prop } from 'vue-property-decorator';
+import { Axis } from 'packages/DragList/DragList.vue';
 
 @Component({ name: 'XDragItem' })
 export default class XDragItem extends Vue {
@@ -18,8 +19,8 @@ export default class XDragItem extends Vue {
 
 	protected dragger!: HTMLElement;
 	protected opacity = 1;
-	protected clickPosition = { x: NaN, y: NaN };
-	protected targetPosition = { x: NaN, y: NaN };
+	protected clickPosition: Axis = { x: NaN, y: NaN };
+	protected targetPosition: Axis = { x: NaN, y: NaN };
 	protected parentNode!: HTMLElement;
 
 	mounted() {
@@ -27,44 +28,51 @@ export default class XDragItem extends Vue {
 	}
 
 	handleMouseDown(event: MouseEvent) {
-		const cloneNode: HTMLElement = this.$el.cloneNode(true) as HTMLElement;
-		const { clientHeight, clientWidth, className } = this.$el as HTMLElement;
+		const clonedNode: HTMLElement = this.$el.cloneNode(true) as HTMLElement;
+		const { offsetHeight, offsetWidth, className } = this.$el as HTMLElement;
 		// const margin = getMargin(this.$el as HTMLElement);
 		this.targetPosition = { x: event.clientX - event.offsetX, y: event.clientY - event.offsetY };
 		this.clickPosition = { x: event.clientX, y: event.clientY };
 
-		this.dragger = this.parentNode.appendChild(cloneNode);
+		this.dragger = this.parentNode.appendChild(clonedNode);
 		this.dragger.style.position = 'fixed';
 		this.dragger.style.left = `${this.targetPosition.x}px`;
 		this.dragger.style.top = `${this.targetPosition.y}px`;
-		this.dragger.style.height = `${clientHeight}px`;
-		this.dragger.style.width = `${clientWidth}px`;
+		this.dragger.style.height = `${offsetHeight}px`;
+		this.dragger.style.width = `${offsetWidth}px`;
 		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
 
-		this.dragger.addEventListener('mouseup', this.handleMouseUp);
 		this.opacity = 0;
+		this.dragger.addEventListener('mouseup', this.handleMouseUp);
 		document.addEventListener('mousemove', this.handleMouseMove);
 	}
 
 	handleMouseMove(event: MouseEvent) {
-		const { clientX, clientY, offsetX, offsetY } = event;
+		const { clientX, clientY } = event;
+		const { x, y } = this.clickPosition;
 		const offset = {
-			x: clientX - this.clickPosition.x,
-			y: clientY - this.clickPosition.y
+			x: clientX - x,
+			y: clientY - y
 		};
-		this.dragger.style.transform = `translate(${this.dragList.lockAxis ? 0 : offset.x}px, ${offset.y}px)`;
+		const { lockAxis } = this.dragList;
+		const axis = this.dragList.axis as keyof Axis;
+		this.dragger.style.transform = `translate(
+			${lockAxis && axis === 'x' ? 0 : offset.x}px,
+			${lockAxis && axis === 'y' ? 0 : offset.y}px
+		)`;
 
-		let $index!: number;
-		if (offset.y > 0 && this.index !== this.dragList.value.length - 1) {
-			$index = this.index + 1;
-		} else if (offset.y < 0 && this.index !== 0) {
-			$index = this.index - 1;
+		let nextIndex: number | null = null;
+		if (offset[axis] > 0 && this.index !== this.dragList.value.length - 1) {
+			nextIndex = this.index + 1;
+		} else if (offset[axis] < 0 && this.index !== 0) {
+			nextIndex = this.index - 1;
 		}
 
-		if (Math.abs(clientY - offsetY - this.targetPosition.y) === ~~((this.$el.clientHeight * 3) / 4)) {
-			if ($index) {
-				this.dragList.handleSort(this.index, $index);
-				this.updatePosition($index, { x: offsetX, y: offsetY });
+		const reference = axis === 'y' ? (this.$el as HTMLElement).offsetHeight : (this.$el as HTMLElement).offsetWidth;
+		if (Math.abs(offset[axis]) >= ~~((reference * 3) / 4)) {
+			if (nextIndex) {
+				this.dragList.handleSort(this.index, nextIndex);
+				this.updatePosition(nextIndex, nextIndex - this.index);
 			}
 		}
 	}
@@ -84,10 +92,19 @@ export default class XDragItem extends Vue {
 		}, 500);
 	}
 
-	updatePosition(newIndex: number, offsetXY: { x: number; y: number }) {
+	updatePosition(newIndex: number, base: number) {
+		const { offsetHeight, offsetWidth } = this.dragList.nodes[newIndex].elm;
+
 		this.targetPosition = {
-			x: this.targetPosition.x,
-			y: this.targetPosition.y
+			x: this.targetPosition.x + (this.dragList.axis === 'x' ? offsetWidth * base : 0),
+			y: this.targetPosition.y + (this.dragList.axis === 'y' ? offsetHeight * base : 0)
+		};
+		// TIPS 直接调整dragger的位置会有一个短暂的闪烁效果，后续还需继续优化
+		this.dragger.style.left = `${this.targetPosition.x}px`;
+		this.dragger.style.top = `${this.targetPosition.y}px`;
+		this.clickPosition = {
+			x: this.clickPosition.x + (this.dragList.axis === 'x' ? offsetWidth * base : 0),
+			y: this.clickPosition.y + (this.dragList.axis === 'y' ? offsetHeight * base : 0)
 		};
 	}
 }
