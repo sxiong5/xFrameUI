@@ -1,3 +1,8 @@
+import { IIndex } from './interfaces';
+
+/**
+ * Get the maring of a HTMLElement
+ */
 export const getMargin = (element: HTMLElement) => {
 	const style = window.getComputedStyle(element);
 
@@ -13,13 +18,18 @@ const getCSSPixelValue = (stringValue: string): number => {
 	return stringValue.substr(-2) === 'px' ? parseFloat(stringValue) : 0;
 };
 
-export const deepClone = (obj: Record<string, any>) => {
+/**
+ * Deep clone an object
+ */
+export const deepClone = <T extends IIndex>(obj: T): T => {
 	if (typeof obj !== 'object') {
-		throw new Error('obj is not a object.');
+		throw new Error('[input params] is not a object.');
 	}
 
-	const newObj: Record<string, any> = Array.isArray(obj) ? [] : {};
-	Object.keys(obj).forEach(key => (newObj[key] = typeof obj[key] === 'object' ? deepClone(obj) : obj[key]));
+	const newObj = Array.isArray(obj) ? [] : {};
+	Object.keys(obj).forEach(
+		key => ((<IIndex>newObj)[key] = typeof obj[key as keyof T] === 'object' ? deepClone(obj) : obj[key])
+	);
 
-	return newObj;
+	return <T>newObj;
 };

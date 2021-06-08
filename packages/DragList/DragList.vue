@@ -66,7 +66,7 @@ export default class XDragList extends Vue {
 
 <style lang="less">
 .x-drag-list-move {
-	transition: all 0.3s ease;
+	transition: all 0.3s ease-out;
 }
 </style>
 <style lang='less' scoped>
