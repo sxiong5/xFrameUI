@@ -29,9 +29,4 @@ export default class ComponentIndex extends Vue {
 	background-color: #fff;
 	border-bottom: 1px solid #efefef;
 }
-.list-item-inside {
-	padding: 10px;
-	background-color: darken(#fff, 10);
-	border-bottom: 1px solid #efefef;
-}
 </style>
