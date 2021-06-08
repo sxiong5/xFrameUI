@@ -46,7 +46,7 @@ export default class XDragItem extends Vue {
 		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
 
 		this.opacity = 0;
-		this.dragger.addEventListener('mouseup', this.handleMouseUp);
+		document.addEventListener('mouseup', this.handleMouseUp);
 		document.addEventListener('mousemove', this.handleMouseMove);
 	}
 

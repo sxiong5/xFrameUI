@@ -12,12 +12,12 @@ module.exports = {
 		}
 	},
 
-	// chainWebpack: config => {
-	// 	config.plugin('html').tap(args => {
-	// 		args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
-	// 		return args;
-	// 	});
-	// },
+	chainWebpack: config => {
+		config.plugin('html').tap(args => {
+			args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
+			return args;
+		});
+	},
 
 	pluginOptions: {
 		'style-resources-loader': {
