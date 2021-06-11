@@ -1,5 +1,8 @@
 const path = require('path');
 
+// 不能用const
+let mdConfig = require('./src/md-loader/index.ts');
+
 module.exports = {
 	publicPath: './',
 	assetsDir: 'assets',
@@ -17,6 +20,15 @@ module.exports = {
 			args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
 			return args;
 		});
+		config.module
+			.rule('md')
+			.test(/\.md$/)
+			.use('vue-loader')
+			.loader('vue-loader')
+			.end()
+			.use('vue-markdown-loader')
+			.loader('vue-markdown-loader/lib/markdown-compiler')
+			.options(mdConfig);
 	},
 
 	pluginOptions: {

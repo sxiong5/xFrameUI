@@ -9,7 +9,7 @@ const routes: RouteConfig[] = [
 	{
 		path: '/components',
 		name: 'Components',
-		component: () => import(/* webpackChunkName: "components" */ '@/views/Components/Index.vue')
+		component: () => import(/* webpackChunkName: "components" */ '@/docs/DragList.md')
 	},
 	{
 		path: '/',
