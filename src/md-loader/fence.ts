@@ -11,7 +11,7 @@ module.exports = md => {
 		if (token.info === 'html' && isInDemoContainer) {
 			return `
         <template #highlight>
-          <pre v-pre v-highlight><code class="language-html">
+          <pre v-pre><code class="language-html">
             ${md.utils.escapeHtml(token.content)}
           </code></pre>
         </template>`;

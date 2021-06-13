@@ -35,8 +35,6 @@ module.exports = function(source) {
 		commentEnd = content.indexOf(endTag, commentStart + startTagLen);
 	}
 
-	// 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
-	// todo: 优化这段逻辑
 	let pageScript = '';
 	if (componenetsString) {
 		pageScript = `<script>
