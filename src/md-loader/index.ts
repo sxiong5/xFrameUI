@@ -1,38 +1,64 @@
-const md = require('markdown-it')();
-const container = require('markdown-it-container');
-const fence = require('./fence.ts');
+const utils = require('./util.ts');
+const markdown = require('./config.ts');
 
-fence(md);
+// @ts-ignore
+module.exports = function(source) {
+	const content = markdown.render(source);
 
-module.exports = {
-	raw: true,
-	use: [
-		[
-			container,
-			'demo',
-			{
-				// @ts-ignore
-				validate(params) {
-					return params.trim().match(/^demo\s*(.*)$/);
-				},
-				// @ts-ignore
-				render(tokens, idx) {
-					const m = tokens[idx].info.trim().match(/^demo\s*(.*)$/);
-					if (tokens[idx].nesting === 1) {
-						const description = m && m.length > 1 ? m[1] : '';
-						const content = tokens[idx + 1].type === 'fence' ? tokens[idx + 1].content : '';
-						console.log(content);
+	const startTag = '<!--demo:';
+	const startTagLen = startTag.length;
+	const endTag = ':demo-->';
+	const endTagLen = endTag.length;
 
-						return `
-              <demo-block>
+	let componenetsString = '';
+	let id = 0; // demo 的 id
+	let output = []; // 输出的内容
+	let start = 0; // 字符串开始位置
 
-            `;
-					}
-					return '</demo-block>';
-				}
-			}
-		],
-		[container, 'tip'],
-		[container, 'warning']
-	]
+	let commentStart = content.indexOf(startTag);
+	let commentEnd = content.indexOf(endTag, commentStart + startTagLen);
+	while (commentStart !== -1 && commentEnd !== -1) {
+		output.push(content.slice(start, commentStart));
+
+		const commentContent = content.slice(commentStart + startTagLen, commentEnd);
+		const html = utils.stripTemplate(commentContent);
+		const script = utils.stripScript(commentContent);
+		let demoComponentContent = utils.genInlineComponentText(html, script);
+		const demoComponentName = `x-demo${id}`;
+		output.push(`<template #source><${demoComponentName} /></template>`);
+		componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
+
+		// 重新计算下一次的位置
+		id++;
+		start = commentEnd + endTagLen;
+		commentStart = content.indexOf(startTag, start);
+		commentEnd = content.indexOf(endTag, commentStart + startTagLen);
+	}
+
+	// 仅允许在 demo 不存在时，才可以在 Markdown 中写 script 标签
+	// todo: 优化这段逻辑
+	let pageScript = '';
+	if (componenetsString) {
+		pageScript = `<script>
+      export default {
+        name: 'component-doc',
+        components: {
+          ${componenetsString}
+        }
+      }
+    </script>`;
+	} else if (content.indexOf('<script>') === 0) {
+		start = content.indexOf('</script>') + '</script>'.length;
+		pageScript = content.slice(0, start);
+	}
+
+	output.push(content.slice(start));
+	return `
+    <template>
+      <section class="content x-doc">
+        ${output.join('')}
+      </section>
+    </template>
+    ${pageScript}
+  `;
 };

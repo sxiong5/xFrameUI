@@ -3,7 +3,7 @@
 :::demo text `text`
 
 ```html
-<button>按钮</button>
+<x-button>按钮</x-button>
 ```
 
 :::

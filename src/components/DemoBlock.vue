@@ -1,10 +1,16 @@
 <template>
 	<div class="demo-block">
-		<slot name="highlight"></slot>
 		<div class="source">
 			<slot name="source"></slot>
 		</div>
-		<slot name="highlight"></slot>
+		<div class="meta" ref="meta">
+			<div class="description" v-if="$slots.default">
+				<slot></slot>
+			</div>
+			<div class="highlight">
+				<slot name="highlight"></slot>
+			</div>
+		</div>
 	</div>
 </template>
 
