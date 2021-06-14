@@ -1,5 +1,20 @@
 import { RouteConfig } from 'vue-router';
 
+export const componentsList: RouteConfig[] = [
+	{
+		path: 'button',
+		name: 'Button',
+		meta: { text: 'Button' },
+		component: () => import(/* webpackChunkName: "components" */ '@/docs/Button.md')
+	},
+	{
+		path: 'drag-list',
+		name: 'DragList',
+		meta: { text: 'DragList' },
+		component: () => import(/* webpackChunkName: "components" */ '@/docs/DragList.md')
+	}
+];
+
 const routes: RouteConfig[] = [
 	{
 		path: '/home',
@@ -9,7 +24,8 @@ const routes: RouteConfig[] = [
 	{
 		path: '/components',
 		name: 'Components',
-		component: () => import(/* webpackChunkName: "components" */ '@/docs/DragList.md')
+		component: () => import(/* webpackChunkName: "components" */ '@/views/Components/Index.vue'),
+		children: componentsList
 	},
 	{
 		path: '/',

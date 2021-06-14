@@ -7,14 +7,16 @@
 			<span @click="showMeta = !showMeta">Expand</span>
 			<span>Copy</span>
 		</div>
-		<div class="meta" ref="meta" v-show="showMeta">
-			<div class="description" v-if="$slots.default">
-				<slot></slot>
+		<transition name="meta">
+			<div class="meta" ref="meta" v-show="showMeta" :style="{ '--height': metaHeight }">
+				<div class="description" v-if="$slots.default">
+					<slot></slot>
+				</div>
+				<div class="highlight" v-highlight>
+					<slot name="highlight"></slot>
+				</div>
 			</div>
-			<div class="highlight" v-highlight>
-				<slot name="highlight"></slot>
-			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -23,7 +25,14 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component({ name: 'DemoBlock' })
 export default class DemoBlock extends Vue {
-	showMeta = false;
+	showMeta = true;
+	metaHeight: number = 0;
+	mounted() {
+		this.$nextTick(() => {
+			this.metaHeight = +(this.$refs.meta as HTMLElement).style.height.replace('px', '');
+			console.log((this.$refs.meta as HTMLElement).style);
+		});
+	}
 }
 </script>
 
@@ -38,7 +47,14 @@ export default class DemoBlock extends Vue {
 	}
 	.source,
 	.meta {
+		box-sizing: content-box;
 		padding: 20px;
+		&-enter-active {
+			animation: unfold 1s;
+		}
+		&-leave-active {
+			animation: unfold 1s reverse;
+		}
 	}
 	.bottom-bar {
 		padding: 15px;
@@ -51,6 +67,14 @@ export default class DemoBlock extends Vue {
 				color: @theme-blue;
 			}
 		}
+	}
+}
+@keyframes unfold {
+	from {
+		height: 0;
+	}
+	to {
+		height: 438;
 	}
 }
 </style>
