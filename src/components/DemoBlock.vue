@@ -29,8 +29,8 @@ export default class DemoBlock extends Vue {
 	metaHeight: number = 0;
 	mounted() {
 		this.$nextTick(() => {
-			this.metaHeight = +(this.$refs.meta as HTMLElement).style.height.replace('px', '');
-			console.log((this.$refs.meta as HTMLElement).style);
+			this.metaHeight = (this.$refs.meta as HTMLElement).offsetHeight;
+			this.showMeta = false;
 		});
 	}
 }
