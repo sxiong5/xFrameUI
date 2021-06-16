@@ -95,7 +95,7 @@ export default class XDragItem extends Vue {
 		this.dragger.style.transform = 'translate(0, 0)';
 		this.targetPosition = { x: NaN, y: NaN };
 		setTimeout(() => {
-			this.parentNode?.removeChild(this.dragger);
+			this.parentNode.contains(this.dragger) && this.parentNode?.removeChild(this.dragger);
 			this.opacity = 1;
 		}, 500);
 	}
@@ -119,5 +119,6 @@ export default class XDragItem extends Vue {
 .x-drag-item {
 	.border-box;
 	list-style: none;
+	text-align: center;
 }
 </style>

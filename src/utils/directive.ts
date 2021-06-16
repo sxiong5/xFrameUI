@@ -5,6 +5,13 @@ import Vue from 'vue';
 Vue.directive('highlight', (el: HTMLElement) => {
 	const blocks = <NodeListOf<HTMLElement>>el.querySelectorAll('pre code');
 
+	hljs.addPlugin({
+		'before:highlight': res => {
+			res.code = (<string>res.code).replace(/^\s+/, '').replaceAll('\t', '  ');
+			return res;
+		}
+	});
+
 	blocks.forEach((block: HTMLElement) => {
 		hljs.highlightElement(block);
 	});

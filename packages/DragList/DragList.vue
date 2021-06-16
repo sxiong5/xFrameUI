@@ -74,7 +74,5 @@ export default class XDragList extends Vue {
 	.none-select;
 	margin: 0;
 	padding: 0;
-	background-color: #f3f3f3;
-	border: 1px solid #efefef;
 }
 </style>

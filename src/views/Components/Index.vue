@@ -1,7 +1,9 @@
 <template>
 	<div class="index">
 		<Menu />
-		<router-view class="view" />
+		<div class="view">
+			<router-view />
+		</div>
 	</div>
 </template>
 
@@ -18,14 +20,14 @@ export default class ComponentIndex extends Vue {
 <style lang='less' scoped>
 .index {
 	.flex(@j: space-between, @a: flex-start);
-	margin: 20px 0;
-	overflow-y: overlay;
-	height: calc(100vh - 90px);
-	padding: 0 5%;
+	height: calc(100vh - 130px);
+	padding: 20px 5%;
 	.view {
+		.size();
 		flex-grow: 1;
 		padding: 0 50px;
 		text-align: left;
+		overflow-y: overlay;
 	}
 }
 </style>

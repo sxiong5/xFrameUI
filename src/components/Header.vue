@@ -7,7 +7,7 @@
 			<router-link
 				v-for="menu in menus"
 				:key="menu.text"
-				:class="{ 'is-selected': $route.path === menu.path }"
+				:class="{ 'is-selected': currentPath === menu.path }"
 				:to="menu.path"
 				class="menu-item"
 			>
@@ -33,6 +33,11 @@ export default class HomeHeader extends Vue {
 		{ text: 'Guide', path: '' },
 		{ text: 'Components', path: '/components' }
 	];
+
+	get currentPath() {
+		const path = this.$route.path.split('/');
+		return `/${path[1]}`;
+	}
 }
 </script>
 
@@ -42,6 +47,7 @@ export default class HomeHeader extends Vue {
 	.flex(@j: space-between);
 	background: @theme-dblue;
 	padding: 20px 5%;
+	text-align: center;
 	& > div,
 	& > a {
 		width: calc(100% / 3);

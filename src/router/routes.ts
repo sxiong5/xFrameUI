@@ -24,6 +24,7 @@ const routes: RouteConfig[] = [
 	{
 		path: '/components',
 		name: 'Components',
+		redirect: '/components/button',
 		component: () => import(/* webpackChunkName: "components" */ '@/views/Components/Index.vue'),
 		children: componentsList
 	},

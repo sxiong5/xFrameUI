@@ -1,6 +1,10 @@
-## DragList
+# DragList
 
-:::demo text `text`
+---
+
+### Basic Usage
+
+:::demo The component doesn't contain any css styles other than those required, and the user can customize the styles by setting `class`.
 
 ```html
 <template>
@@ -19,10 +23,19 @@
 	};
 </script>
 
-<style scoped>
+<style>
 	.drag-list {
 		padding: 10px 0;
-		text-align: center;
+		background-color: #f3f3f3;
+		border: 1px solid #efefef;
+	}
+	.drag-list-item {
+		background: #fff;
+		padding: 15px 10px;
+		text-align: left !important;
+	}
+	.drag-list-item + .drag-list-item {
+		border-top: 1px solid #eee;
 	}
 </style>
 ```

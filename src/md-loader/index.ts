@@ -17,14 +17,16 @@ module.exports = function(source) {
 
 	let commentStart = content.indexOf(startTag);
 	let commentEnd = content.indexOf(endTag, commentStart + startTagLen);
+	let pageStyle = '';
 	while (commentStart !== -1 && commentEnd !== -1) {
 		output.push(content.slice(start, commentStart));
 
 		const commentContent = content.slice(commentStart + startTagLen, commentEnd);
 		const html = utils.stripTemplate(commentContent);
 		const script = utils.stripScript(commentContent);
+		pageStyle += utils.stripStyle(commentContent);
 		let demoComponentContent = utils.genInlineComponentText(html, script);
-		const demoComponentName = `x-demo${id}`;
+		const demoComponentName = `x-demo-${id}`;
 		output.push(`<template #source><${demoComponentName} /></template>`);
 		componenetsString += `${JSON.stringify(demoComponentName)}: ${demoComponentContent},`;
 
@@ -50,6 +52,13 @@ module.exports = function(source) {
 		pageScript = content.slice(0, start);
 	}
 
+	if (pageStyle) {
+		pageStyle = `
+			<style>
+			${pageStyle}
+			</style>`;
+	}
+
 	output.push(content.slice(start));
 	return `
     <template>
@@ -58,5 +67,6 @@ module.exports = function(source) {
       </section>
     </template>
     ${pageScript}
+		${pageStyle}
   `;
 };

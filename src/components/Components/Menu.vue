@@ -1,8 +1,15 @@
 <template>
 	<ul class="menu">
-		<router-link tag="li" class="menu-item" v-for="menu in menus" :key="menu.name" :to="`/components/${menu.path}`">{{
-			menu.meta.text
-		}}</router-link>
+		<router-link
+			custom
+			class="menu-item"
+			v-slot="{ navigate }"
+			v-for="menu in menus"
+			:key="menu.name"
+			:to="`/components/${menu.path}`"
+		>
+			<li @click="navigate" role="link">{{ menu.meta.text }}</li>
+		</router-link>
 	</ul>
 </template>
 

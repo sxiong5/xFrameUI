@@ -4,6 +4,7 @@ import components from '../packages';
 import router from './router';
 import DemoBlock from './components/DemoBlock.vue';
 import './utils/directive';
+import 'highlight.js/styles/color-brewer.css';
 
 Vue.config.productionTip = false;
 

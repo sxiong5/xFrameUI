@@ -36,7 +36,6 @@ function pad(source) {
 
 //@ts-ignore
 function genInlineComponentText(template, script) {
-	// https://github.com/vuejs/vue-loader/blob/423b8341ab368c2117931e909e2da9af74503635/lib/loaders/templateLoader.js#L46
 	const finalOptions = {
 		source: `<div>${template}</div>`,
 		filename: 'inline-component', // TODO：这里有待调整
