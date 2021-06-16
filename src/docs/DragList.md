@@ -2,6 +2,9 @@
 
 ---
 
+<br/>
+<br/>
+
 ### Basic Usage
 
 :::demo The component doesn't contain any css styles other than those required, and the user can customize the styles by setting `class`.
@@ -41,3 +44,23 @@
 ```
 
 :::
+<br/>
+<br/>
+
+### DragList Attributes
+
+| Attribute     | Desctiption                         | Type    | Accepted Values | Default Value |
+| ------------- | ----------------------------------- | ------- | --------------- | ------------- |
+| v-model/value | binding value                       | Array   | --              | --            |
+| append-to     | the parent node of drag item        | String  | CSS Selectors   | '#app'        |
+| active-class  | the class name of drag item         | String  | --              | --            |
+| axis          | the main axis of the drag derection | String  | 'x', 'y'        | 'y'           |
+| lock-axis     | lock the axis                       | boolean | --              | false         |
+
+<br/>
+
+### DragItem Attributes
+
+| Attribute | Desctiption       | Type   | Accepted Values | Default Value |
+| --------- | ----------------- | ------ | --------------- | ------------- |
+| index     | the index of item | Number | --              | --            |

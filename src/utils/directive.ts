@@ -7,7 +7,10 @@ Vue.directive('highlight', (el: HTMLElement) => {
 
 	hljs.addPlugin({
 		'before:highlight': res => {
-			res.code = (<string>res.code).replace(/^\s+/, '').replaceAll('\t', '  ');
+			res.code = (<string>res.code)
+				.replace(/^\s+/, '')
+				.replaceAll('\t', '  ')
+				.replace(/\s+$/, '');
 			return res;
 		}
 	});
