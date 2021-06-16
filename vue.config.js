@@ -30,7 +30,10 @@ module.exports = {
 	pluginOptions: {
 		'style-resources-loader': {
 			preProcessor: 'less',
-			patterns: [path.resolve(__dirname, 'src/assets/style/global.less')]
+			patterns: [
+				path.resolve(__dirname, 'src/assets/style/global.less'),
+				path.resolve(__dirname, 'src/assets/style/scroll.less')
+			]
 		}
 	}
 };
