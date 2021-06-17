@@ -1,5 +1,10 @@
 <template>
-	<li :class="{ 'is-checked': isChecked || isHover }" @mouseenter="isHover = true" @mouseleave="isHover = false">
+	<li
+		class="col-layout"
+		:class="{ 'is-checked': isChecked || isHover }"
+		@mouseenter="isHover = true"
+		@mouseleave="isHover = false"
+	>
 		<slot></slot>
 	</li>
 </template>
@@ -7,8 +12,8 @@
 <script lang='ts'>
 import { Vue, Component, Prop } from 'vue-property-decorator';
 
-@Component({ name: 'MenuItem' })
-export default class MenuItem extends Vue {
+@Component({ name: 'InstructionItem' })
+export default class InstructionItem extends Vue {
 	@Prop({ type: String, required: true })
 	path!: string;
 
@@ -21,8 +26,7 @@ export default class MenuItem extends Vue {
 
 <style lang='less' scoped>
 .is-checked {
-	background: @theme-dblue;
-	color: #fff;
+	background: @theme-lblue;
 	border-radius: @radius;
 }
 </style>

@@ -1,6 +1,12 @@
-import { MenuList } from '@/utils/interfaces';
+import { Menu, MenuList } from '@/utils/interfaces';
 
-const MENU: MenuList[] = [
+export const MENU_INSTRUCTION: Menu[] = [
+	{ text: 'Change Log', path: 'change-log' },
+	{ text: 'Installation', path: 'installation' },
+	{ text: 'Quick Start', path: 'quick-start' }
+];
+
+export const MENU_COMPONENTS: MenuList[] = [
 	{
 		category: 'Basic',
 		children: [
@@ -29,5 +35,3 @@ const MENU: MenuList[] = [
 		]
 	}
 ];
-
-export default MENU;

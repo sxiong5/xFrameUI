@@ -12,16 +12,13 @@ import { Vue, Component } from 'vue-property-decorator';
 import Nav from '@/components/Components/Nav.vue';
 
 @Component({ name: 'ComponentIndex', components: { Nav } })
-export default class ComponentIndex extends Vue {
-	arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
-}
+export default class ComponentIndex extends Vue {}
 </script>
 
 <style lang='less' scoped>
 .index {
 	.flex(@j: space-between, @a: flex-start);
-	height: calc(100vh - 130px);
-	padding: 20px 5%;
+	height: calc(100vh - 90px);
 	.view {
 		.size();
 		flex-grow: 1;

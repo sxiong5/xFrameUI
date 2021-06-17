@@ -3,11 +3,11 @@ export interface IIndex<T = any> {
 }
 
 export interface MenuList {
-	category: string
-	children: Menu[]
+	category: string;
+	children: Menu[];
 }
 
-interface Menu {
-	text: string
-	path: string
+export interface Menu {
+	text: string;
+	path: string;
 }
