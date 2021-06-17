@@ -1,6 +1,6 @@
 <template>
 	<div class="index">
-		<Menu />
+		<Nav />
 		<div class="view">
 			<router-view />
 		</div>
@@ -9,9 +9,9 @@
 
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
-import Menu from '@/components/Components/Menu.vue';
+import Nav from '@/components/Components/Nav.vue';
 
-@Component({ name: 'ComponentIndex', components: { Menu } })
+@Component({ name: 'ComponentIndex', components: { Nav } })
 export default class ComponentIndex extends Vue {
 	arr: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 }
