@@ -4,14 +4,17 @@ export const componentsList: RouteConfig[] = [
 	{
 		path: 'button',
 		name: 'Button',
-		meta: { text: 'Button' },
 		component: () => import(/* webpackChunkName: "components" */ '@/docs/Button.md')
 	},
 	{
 		path: 'drag-list',
 		name: 'DragList',
-		meta: { text: 'DragList' },
 		component: () => import(/* webpackChunkName: "components" */ '@/docs/DragList.md')
+	},
+	{
+		path: 'folding',
+		name: 'Folding',
+		component: () => import(/* webpackChunkName: "components" */ '@/docs/Folding.md')
 	}
 ];
 
