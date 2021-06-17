@@ -13,7 +13,7 @@ function stripStyle(content) {
 	return result && result[2] ? result[2].trim() : '';
 }
 
-// 编写例子时不一定有 template。所以采取的方案是剔除其他的内容
+// 编写例子时不一定有 template。所以剔除其他的内容
 //@ts-ignore
 function stripTemplate(content) {
 	content = content.trim();
@@ -38,11 +38,11 @@ function pad(source) {
 function genInlineComponentText(template, script) {
 	const finalOptions = {
 		source: `<div>${template}</div>`,
-		filename: 'inline-component', // TODO：这里有待调整
+		filename: 'inline-component',
 		compiler
 	};
 	const compiled = compileTemplate(finalOptions);
-	// tips
+
 	if (compiled.tips && compiled.tips.length) {
 		//@ts-ignore
 		compiled.tips.forEach(tip => {
@@ -61,7 +61,7 @@ function genInlineComponentText(template, script) {
 	let demoComponentContent = `
     ${compiled.code}
   `;
-	// todo: 这里采用了硬编码有待改进
+
 	script = script.trim();
 	if (script) {
 		script = script.replace(/export\s+default/, 'const democomponentExport =');
