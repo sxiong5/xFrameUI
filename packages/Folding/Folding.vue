@@ -13,14 +13,26 @@
 </template>
 
 <script lang='ts'>
-import { Vue, Component } from 'vue-property-decorator';
+/**
+ * @property {String} axis 主轴方向
+ */
+import { Vue, Component, Prop } from 'vue-property-decorator';
 import { addClass, removeClass, getMP } from '@/utils/dom';
 
 @Component({ name: 'XFolding' })
 export default class XFolding extends Vue {
 	public static entryName = 'XFolding';
 
-	protected padding = { top: '', bottom: '' };
+	@Prop({
+		type: String,
+		default: 'y',
+		validator(value) {
+			return ['x', 'y'].includes(value);
+		}
+	})
+	axis!: string;
+
+	protected padding = { top: '', bottom: '', left: '', right: '' };
 
 	beforeEnter(el: HTMLElement) {
 		addClass(el, 'folding-transition');
@@ -28,16 +40,30 @@ export default class XFolding extends Vue {
 
 		this.padding.top = `${padding.top}px`;
 		this.padding.bottom = `${padding.bottom}px`;
+		this.padding.left = `${padding.left}px`;
+		this.padding.right = `${padding.right}px`;
 
-		el.style.height = '0';
-		el.style.paddingTop = '0';
-		el.style.paddingBottom = '0';
+		if (this.axis === 'y') {
+			el.style.height = '0';
+			el.style.paddingTop = '0';
+			el.style.paddingBottom = '0';
+		} else if (this.axis === 'x') {
+			el.style.width = '0';
+			el.style.paddingLeft = '0';
+			el.style.paddingRight = '0';
+		}
 	}
 
 	enter(el: HTMLElement) {
-		el.style.height = `${el.scrollHeight}px`;
-		el.style.paddingTop = this.padding.top;
-		el.style.paddingBottom = this.padding.bottom;
+		if (this.axis === 'y') {
+			el.style.height = `${el.scrollHeight}px`;
+			el.style.paddingTop = this.padding.top;
+			el.style.paddingBottom = this.padding.bottom;
+		} else if (this.axis === 'x') {
+			el.style.width = `${el.scrollWidth}px`;
+			el.style.paddingLeft = this.padding.left;
+			el.style.paddingRight = this.padding.right;
+		}
 	}
 
 	afterEnter(el: HTMLElement) {
@@ -46,20 +72,36 @@ export default class XFolding extends Vue {
 
 	beforeLeave(el: HTMLElement) {
 		addClass(el, 'folding-transition');
-		el.style.height = `${el.scrollHeight}px`;
+		if (this.axis === 'y') {
+			el.style.height = `${el.scrollHeight}px`;
+		} else if (this.axis === 'x') {
+			el.style.width = `${el.scrollWidth}px`;
+		}
 	}
 
 	leave(el: HTMLElement) {
-		el.style.height = '0';
-		el.style.paddingTop = '0';
-		el.style.paddingBottom = '0';
+		if (this.axis === 'y') {
+			el.style.height = '0';
+			el.style.paddingTop = '0';
+			el.style.paddingBottom = '0';
+		} else if (this.axis === 'x') {
+			el.style.width = '0';
+			el.style.paddingLeft = '0';
+			el.style.paddingRight = '0';
+		}
 	}
 
 	afterLeave(el: HTMLElement) {
 		removeClass(el, 'folding-transition');
-		el.style.height = '0';
-		el.style.paddingTop = this.padding.top;
-		el.style.paddingBottom = this.padding.bottom;
+		if (this.axis === 'y') {
+			el.style.height = '0';
+			el.style.paddingTop = this.padding.top;
+			el.style.paddingBottom = this.padding.bottom;
+		} else if (this.axis === 'x') {
+			el.style.width = '0';
+			el.style.paddingLeft = this.padding.left;
+			el.style.paddingRight = this.padding.right;
+		}
 	}
 }
 </script>

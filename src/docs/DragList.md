@@ -11,7 +11,7 @@
 
 ```html
 <template>
-	<x-drag-list v-model="list" class="drag-list">
+	<x-drag-list v-model="list" class="drag-list" @sort-end="sortEnd">
 		<x-drag-item v-for="(item, index) in list" :key="item" :index="index" class="drag-list-item">
 			{{item}}
 		</x-drag-item>
@@ -22,7 +22,12 @@
 	export default {
 		data: () => ({
 			list: ['01', '02', '03', '04', '05']
-		})
+		}),
+		methods: {
+			sortEnd(value) {
+				console.log(value);
+			}
+		}
 	};
 </script>
 

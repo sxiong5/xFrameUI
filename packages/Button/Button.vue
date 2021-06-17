@@ -16,7 +16,6 @@
 
 <script lang='ts'>
 /**
- * 按钮
  * @property {String} size 按钮大小 'small' | 'middle' | 'large'
  * @property {Boolean} round 是否为圆角
  * @property {Boolean} disabled 是否禁用
