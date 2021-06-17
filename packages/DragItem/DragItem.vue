@@ -5,6 +5,9 @@
 </template>
 
 <script lang='ts'>
+/**
+ * @property {Number} index item的index
+ */
 import { Vue, Component, Inject, Prop } from 'vue-property-decorator';
 import { Axis } from 'packages/DragList/DragList.vue';
 import { deepClone } from '@/utils';
@@ -46,7 +49,7 @@ export default class XDragItem extends Vue {
 		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
 
 		this.opacity = 0;
-		document.addEventListener('mouseup', this.handleMouseUp);
+		this.dragger.addEventListener('mouseup', this.handleMouseUp);
 		document.addEventListener('mousemove', this.handleMouseMove);
 	}
 
@@ -94,6 +97,7 @@ export default class XDragItem extends Vue {
 		this.dragger.style.top = `${this.targetPosition.y}px`;
 		this.dragger.style.transform = 'translate(0, 0)';
 		this.targetPosition = { x: NaN, y: NaN };
+		this.dragList.emitSortEnd();
 		setTimeout(() => {
 			this.parentNode.contains(this.dragger) && this.parentNode?.removeChild(this.dragger);
 			this.opacity = 1;

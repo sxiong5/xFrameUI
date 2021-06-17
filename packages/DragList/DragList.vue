@@ -13,6 +13,7 @@
  * @property {Boolean} lockAxis 锁定主轴 限制拖拽元素在容器内移动
  *
  * @event change value顺序改变时触发
+ * @event sort-end 排序结束时触发
  */
 import { Vue, Component, Model, Prop, Provide, Emit } from 'vue-property-decorator';
 
@@ -54,12 +55,17 @@ export default class XDragList extends Vue {
 	emitChange() {
 		return this.value;
 	}
+	@Emit('sort-end')
+	emitSortEnd() {
+		return this.value;
+	}
 
 	@Provide('dragList')
 	dragList = {
 		...this.$props,
 		nodes: this.$slots.default,
-		handleSort: this.handleSort
+		handleSort: this.handleSort,
+		emitSortEnd: this.emitSortEnd
 	};
 }
 </script>

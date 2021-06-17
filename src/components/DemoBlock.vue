@@ -24,7 +24,7 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component({ name: 'DemoBlock' })
 export default class DemoBlock extends Vue {
-	showMeta = true;
+	showMeta = false;
 }
 </script>
 
@@ -63,8 +63,8 @@ export default class DemoBlock extends Vue {
 	}
 	.source,
 	.meta {
-		box-sizing: content-box;
 		padding: 20px;
+		overflow: hidden;
 	}
 	.bottom-bar {
 		padding: 15px;
