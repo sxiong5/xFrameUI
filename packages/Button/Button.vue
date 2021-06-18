@@ -31,7 +31,7 @@ import { xFrameComponentSize } from '@/utils/xFrameConfig';
 export default class XButton extends Vue {
 	public static entryName = 'XButton';
 
-	@Prop({ type: String, default: 'middle' })
+	@Prop({ type: String, default: 'small' })
 	size!: xFrameComponentSize;
 	@Prop({ type: Boolean, default: false })
 	round!: boolean;
@@ -74,6 +74,11 @@ export default class XButton extends Vue {
 	z-index: 1;
 	overflow: hidden;
 	outline: none;
+	&:hover {
+		color: @theme-blue;
+		border-color: @theme-blue;
+		background-color: @theme-lblue;
+	}
 	&.is-round {
 		border-radius: 50px !important;
 	}
@@ -90,25 +95,19 @@ export default class XButton extends Vue {
 	left: var(--x);
 	top: var(--y);
 	background: rgba(255, 255, 255, 0.3);
-	animation: ripples 1s linear infinite;
+	animation: ripples 1s ease-out;
 }
 .x-button--small {
-	padding: 9px 10px;
-	&.is-round {
-		font-size: @font12;
-	}
+	padding: 9px 15px;
+	font-size: @font12;
 }
 .x-button--middle {
-	padding: 10px 15px;
-	&.is-round {
-		font-size: @font14;
-	}
+	padding: 10px 20px;
+	font-size: @font14;
 }
 .x-button--large {
 	padding: 12px 20px;
-	&.is-round {
-		font-size: @font14;
-	}
+	font-size: @font14;
 }
 
 @keyframes ripples {

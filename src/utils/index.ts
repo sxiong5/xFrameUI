@@ -15,3 +15,12 @@ export const deepClone = <T extends IIndex>(obj: T): T => {
 
 	return <T>newObj;
 };
+
+/**
+ * Conver AaaBbb to aaa-bbb
+ */
+export const convertName = (camelCaseName: string) => {
+	const temp = camelCaseName.substr(0, 1).toLowerCase() + camelCaseName.substr(1);
+	const newName = temp.replace(/[A-Z]/g, i => `-${i.toLowerCase()}`);
+	return newName;
+};

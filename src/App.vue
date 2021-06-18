@@ -15,10 +15,10 @@ export default class App extends Vue {}
 
 <style lang="less">
 #app {
-	font-family: Avenir, Helvetica, Arial, sans-serif;
+	.size(@h: 100vh);
+	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	.size(@h: 100vh);
 	overflow-y: hidden;
 }
 </style>

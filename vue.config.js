@@ -32,7 +32,8 @@ module.exports = {
 			preProcessor: 'less',
 			patterns: [
 				path.resolve(__dirname, 'src/assets/style/global.less'),
-				path.resolve(__dirname, 'src/assets/style/scroll.less')
+				path.resolve(__dirname, 'src/assets/style/scroll.less'),
+				path.resolve(__dirname, 'src/assets/style/docs.less')
 			]
 		}
 	}

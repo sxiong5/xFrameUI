@@ -1,4 +1,23 @@
+import { convertName } from '@/utils';
 import { RouteConfig } from 'vue-router';
+
+/**
+ * import routes automatically
+ */
+const docs = (): RouteConfig[] => {
+	const paths = require.context('@/docs', true, /.md/);
+
+	const docRoutes = paths.keys().map(item => {
+		const name = (<RegExpMatchArray>item.match(/\/(.+)\.md/))[1];
+		return {
+			path: convertName(name),
+			name,
+			component: () => import(/* webpackChunkName: "components" */ `@/docs/${name}.md`)
+		} as RouteConfig;
+	});
+
+	return docRoutes;
+};
 
 const routes: RouteConfig[] = [
 	{
@@ -11,38 +30,7 @@ const routes: RouteConfig[] = [
 		name: 'Components',
 		redirect: '/components/button',
 		component: () => import(/* webpackChunkName: "components" */ '@/views/Components/Index.vue'),
-		children: [
-			{
-				path: 'change-log',
-				name: 'ChangeLog',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/ChangeLog.md')
-			},
-			{
-				path: 'installation',
-				name: 'Installation',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/Installation.md')
-			},
-			{
-				path: 'quick-start',
-				name: 'QuickStart',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/QuickStart.md')
-			},
-			{
-				path: 'button',
-				name: 'Button',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/Button.md')
-			},
-			{
-				path: 'drag-list',
-				name: 'DragList',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/DragList.md')
-			},
-			{
-				path: 'folding',
-				name: 'Folding',
-				component: () => import(/* webpackChunkName: "components" */ '@/docs/Folding.md')
-			}
-		]
+		children: docs()
 	},
 	{
 		path: '/',

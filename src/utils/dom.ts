@@ -5,7 +5,7 @@ export const getMP = (element: HTMLElement) => {
 	const style = window.getComputedStyle(element);
 
 	const M_P = {
-		magin: {
+		margin: {
 			top: getCSSPixelValue(style.marginTop),
 			right: getCSSPixelValue(style.marginRight),
 			bottom: getCSSPixelValue(style.marginBottom),

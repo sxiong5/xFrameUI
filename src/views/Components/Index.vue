@@ -20,7 +20,7 @@ export default class ComponentIndex extends Vue {}
 	.flex(@j: space-between, @a: flex-start);
 	height: calc(100vh - 90px);
 	.view {
-		.size();
+		.size;
 		flex-grow: 1;
 		padding: 0 50px;
 		text-align: left;

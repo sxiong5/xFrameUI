@@ -16,6 +16,7 @@
  * @event sort-end 排序结束时触发
  */
 import { Vue, Component, Model, Prop, Provide, Emit } from 'vue-property-decorator';
+import { VNode } from 'vue/types/umd';
 
 export interface Axis {
 	x: number;
@@ -67,6 +68,14 @@ export default class XDragList extends Vue {
 		handleSort: this.handleSort,
 		emitSortEnd: this.emitSortEnd
 	};
+
+	mounted() {
+		for (let item of this.$slots.default as VNode[]) {
+			if (!item.tag?.includes('XDragItem')) {
+				throw new Error('only the <x-drag-item></x-drag-item> can be uses in <x-drag-list></x-drag-list>!');
+			}
+		}
+	}
 }
 </script>
 

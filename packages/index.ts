@@ -1,29 +1,30 @@
 import { VueConstructor } from 'vue';
-import Button from './Button';
-import DragList from './DragList';
-import DragItem from './DragItem';
-import Folding from './Folding';
 
+interface _VueConstructor extends VueConstructor {
+	entryName: string;
+}
 interface Component {
 	[prop: string]: unknown;
+}
+interface GloablComponent extends Component {
 	install: (Vue: VueConstructor) => void;
 }
 
-const components = [Button, DragList, DragItem, Folding];
+const paths = require.context('./', true, /index.ts/);
 
-const install = (Vue: VueConstructor) => {
-	components.forEach(component => Vue.component(component.entryName, component));
+const components: Component = {};
+paths.keys().forEach(item => {
+	const res = item.match(/\.\/(.+)\/index\.ts$/);
+	res && (components[res[1]] = require(`./${res[1]}`).default);
+});
+
+const globalComponents: GloablComponent = {
+	...components,
+	install: (Vue: VueConstructor) => {
+		Object.keys(components).forEach(item =>
+			Vue.component((<_VueConstructor>components[item]).entryName, <VueConstructor>components[item])
+		);
+	}
 };
 
-/* istanbul ignore if */
-if (typeof window !== 'undefined' && window.Vue) {
-	install(window.Vue);
-}
-
-export default {
-	Button,
-	DragList,
-	DragItem,
-	Folding,
-	install
-} as Component;
+export default globalComponents;
