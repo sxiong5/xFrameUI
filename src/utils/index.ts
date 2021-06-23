@@ -5,7 +5,7 @@ import { IIndex } from './interfaces';
  */
 export const deepClone = <T extends IIndex>(obj: T): T => {
 	if (typeof obj !== 'object') {
-		throw new Error('[input params] is not a object.');
+		throw new Error('[input params] is not an object.');
 	}
 
 	const newObj = Array.isArray(obj) ? [] : {};

@@ -1,5 +1,5 @@
 <template>
-	<div class="home-header">
+	<header class="home-header">
 		<router-link to="/home">
 			<img class="header-logo" :src="require('@/assets/images/header-logo.png')" />
 		</router-link>
@@ -15,7 +15,7 @@
 			</router-link>
 		</div>
 		<div></div>
-	</div>
+	</header>
 </template>
 
 <script lang='ts'>

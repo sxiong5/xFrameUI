@@ -8,8 +8,10 @@
 			</div>
 
 			<div>
-				<x-button class="btn-start" size="large" round animation>Get Start</x-button>
-				<x-button class="btn-more" size="large" round animation>Learn More</x-button>
+				<x-button class="btn-start" size="large" type="round" feedback :theme="themeOption">Get Start</x-button>
+				<x-button class="btn-more" size="large" :type="['round', 'hollow']" :theme="themeOption" feedback>
+					Learn More
+				</x-button>
 			</div>
 		</div>
 		<div></div>
@@ -17,10 +19,17 @@
 </template>
 
 <script lang='ts'>
+import { ButtonThemeOptions } from '@/utils/xFrameConfig';
 import { Vue, Component } from 'vue-property-decorator';
 
 @Component({ name: 'Introduction' })
-export default class Introduction extends Vue {}
+export default class Introduction extends Vue {
+	themeOption: ButtonThemeOptions = {
+		background: '#35a7c3',
+		color: '#3f72af',
+		activeBgColor: '#35a7c3'
+	};
+}
 </script>
 
 <style lang='less' scoped>
@@ -31,7 +40,6 @@ export default class Introduction extends Vue {}
 		margin-top: 10px;
 	}
 }
-
 .introduction {
 	.size(100%, auto);
 	.border-box;
@@ -43,6 +51,9 @@ export default class Introduction extends Vue {}
 	& > div {
 		.size(50%);
 	}
+}
+[class^='x-button'] {
+	font-size: @font30;
 }
 .introduction-text {
 	.flex(column, nowrap, space-around, flex-start);
@@ -56,24 +67,6 @@ export default class Introduction extends Vue {}
 	.text-author {
 		color: #c6c9d2;
 		font-size: @font20;
-	}
-	.btn-start,
-	.btn-more {
-		font-size: @font30;
-		font-weight: bold;
-		border: 1px solid @theme-green;
-	}
-	.btn-start {
-		background: @theme-green;
-		color: @theme-dblue;
-		&:hover {
-			background: darken(@theme-green, 10%);
-		}
-	}
-	.btn-more {
-		background: none;
-		color: @theme-green;
-		margin-left: 40px;
 	}
 }
 </style>

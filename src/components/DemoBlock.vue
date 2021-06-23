@@ -4,10 +4,10 @@
 			<slot name="source"></slot>
 		</div>
 		<div class="bottom-bar" :style="{ 'border-bottom': showMeta ? '1px solid #eee' : 'none' }">
-			<span @click="showMeta = !showMeta">Expand</span>
+			<x-button @click="showMeta = !showMeta" size="large" type="text">Expand</x-button>
 		</div>
 		<x-folding>
-			<div class="meta" ref="meta" v-show="showMeta">
+			<div class="meta" v-show="showMeta">
 				<div class="description" v-if="$slots.default">
 					<slot></slot>
 				</div>
