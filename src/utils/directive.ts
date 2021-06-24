@@ -15,6 +15,8 @@ Vue.directive('highlight', (el: HTMLElement) => {
 		}
 	});
 
+	hljs.configure({ ignoreUnescapedHTML: true });
+
 	blocks.forEach((block: HTMLElement) => {
 		hljs.highlightElement(block);
 	});
