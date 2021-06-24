@@ -37,13 +37,6 @@ export default class XFolding extends Vue {
 	protected overflow!: string;
 
 	beforeEnter(el: HTMLElement) {
-		const { padding } = getMP(el);
-
-		this.padding.top = `${padding.top}px`;
-		this.padding.bottom = `${padding.bottom}px`;
-		this.padding.left = `${padding.left}px`;
-		this.padding.right = `${padding.right}px`;
-
 		if (this.axis === 'y') {
 			el.style.height = '0';
 			el.style.paddingTop = '0';
@@ -62,7 +55,7 @@ export default class XFolding extends Vue {
 			el.style.paddingTop = this.padding.top;
 			el.style.paddingBottom = this.padding.bottom;
 		} else if (this.axis === 'x') {
-			el.style.width = `${el.scrollWidth}px`;
+			el.style.width = `${el.offsetWidth}px`;
 			el.style.paddingLeft = this.padding.left;
 			el.style.paddingRight = this.padding.right;
 		}
@@ -87,10 +80,14 @@ export default class XFolding extends Vue {
 		this.overflow = el.style.overflow;
 		if (this.axis === 'y') {
 			el.style.height = `${el.scrollHeight}px`;
+			el.style.paddingTop = this.padding.top;
+			el.style.paddingBottom = this.padding.bottom;
 			// BUG
 			console.log(el.scrollHeight);
 		} else if (this.axis === 'x') {
-			el.style.width = `${el.scrollWidth}px`;
+			el.style.width = `${el.offsetWidth}px`;
+			el.style.paddingLeft = this.padding.left;
+			el.style.paddingRight = this.padding.right;
 		}
 		el.style.overflow = 'hidden';
 	}
@@ -101,7 +98,7 @@ export default class XFolding extends Vue {
 			el.style.paddingTop = '0';
 			el.style.paddingBottom = '0';
 		} else if (this.axis === 'x') {
-			el.style.width = '0';
+			el.style.width = '0px';
 			el.style.paddingLeft = '0';
 			el.style.paddingRight = '0';
 		}
@@ -122,6 +119,12 @@ export default class XFolding extends Vue {
 
 	mounted() {
 		addClass((this.$slots.default as VNode[])[0].elm as HTMLElement, 'folding-transition');
+
+		const { padding } = getMP((this.$slots.default as VNode[])[0].elm as HTMLElement);
+		this.padding.top = `${padding.top}px`;
+		this.padding.bottom = `${padding.bottom}px`;
+		this.padding.left = `${padding.left}px`;
+		this.padding.right = `${padding.right}px`;
 	}
 	beforeDestory() {
 		removeClass((this.$slots.default as VNode[])[0].elm as HTMLElement, 'folding-transition');

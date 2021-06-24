@@ -92,7 +92,7 @@ export default class XButton extends Vue {
 }
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
 .x-button {
 	display: inline-block;
 	cursor: pointer;

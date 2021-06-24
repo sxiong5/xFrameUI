@@ -1,5 +1,5 @@
 <template>
-	<li class="x-drag-item" @mousedown.stop="handleMouseDown" :style="{ opacity }">
+	<li class="x-drag__item" @mousedown.stop="handleMouseDown" :style="{ opacity }">
 		<slot></slot>
 	</li>
 </template>
@@ -119,8 +119,8 @@ export default class XDragItem extends Vue {
 }
 </script>
 
-<style lang='less' scoped>
-.x-drag-item {
+<style lang='less'>
+.x-drag__item {
 	.border-box;
 	list-style: none;
 	text-align: center;

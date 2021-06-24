@@ -30,17 +30,12 @@ const getCSSPixelValue = (value: string): number => {
  * Add a class to a dom
  */
 export const addClass = (el: HTMLElement, className: string) => {
-	el.className = `${el.className} ${className}`;
+	el.classList.add(className);
 };
 
 /**
  * Remove a class from a dom
  */
 export const removeClass = (el: HTMLElement, className: string) => {
-	if (el.className.includes(className)) {
-		const classArr = el.className.split(' ');
-		const index = classArr.findIndex(item => item === className);
-		classArr.splice(index, 1);
-		el.className = classArr.join(' ');
-	}
+	el.classList.contains(className) && el.classList.remove(className);
 };

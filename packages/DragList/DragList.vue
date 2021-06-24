@@ -1,5 +1,5 @@
 <template>
-	<transition-group class="x-drag-list" name="x-drag-list" tag="ul">
+	<transition-group class="x-drag__list" name="x-drag__list" tag="ul">
 		<slot></slot>
 	</transition-group>
 </template>
@@ -79,13 +79,11 @@ export default class XDragList extends Vue {
 }
 </script>
 
-<style lang="less">
-.x-drag-list-move {
+<style lang='less'>
+.x-drag__list-move {
 	transition: all 0.3s ease-out;
 }
-</style>
-<style lang='less' scoped>
-.x-drag-list {
+.x-drag__list {
 	.none-select;
 	margin: 0;
 	padding: 0;
