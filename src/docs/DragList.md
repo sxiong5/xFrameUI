@@ -28,7 +28,6 @@
 
 <style>
 	.drag-list {
-		padding: 10px 0;
 		background-color: #f3f3f3;
 		border: 1px solid #efefef;
 	}
@@ -107,7 +106,6 @@
 	.drag-list-horizontal {
 		display: flex;
 		flex-flow: row nowrap;
-		padding: 10px 0;
 		background-color: #f3f3f3;
 		border: 1px solid #efefef;
 		width: auto;

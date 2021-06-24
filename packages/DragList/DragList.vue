@@ -80,12 +80,12 @@ export default class XDragList extends Vue {
 </script>
 
 <style lang='less'>
-.x-drag__list-move {
-	transition: all 0.3s ease-out;
-}
 .x-drag__list {
 	.none-select;
 	margin: 0;
 	padding: 0;
+	&-move {
+		transition: all 0.3s ease-out;
+	}
 }
 </style>

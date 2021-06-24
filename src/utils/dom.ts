@@ -22,7 +22,7 @@ export const getMP = (element: HTMLElement) => {
 	return M_P;
 };
 
-const getCSSPixelValue = (value: string): number => {
+export const getCSSPixelValue = (value: string): number => {
 	return +value.replace('px', '');
 };
 

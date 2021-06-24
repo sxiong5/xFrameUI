@@ -5,6 +5,7 @@ import router from './router';
 import DemoBlock from './components/DemoBlock.vue';
 import './utils/directive';
 import 'highlight.js/styles/color-brewer.css';
+import './assets/iconfont/iconfont.css';
 
 Vue.config.productionTip = false;
 

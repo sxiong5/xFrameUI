@@ -4,8 +4,7 @@
 			<slot name="source"></slot>
 		</div>
 		<div class="bottom-bar" :style="{ 'border-bottom': showMeta ? '1px solid #eee' : 'none' }">
-			<!-- <x-button @click="showMeta = !showMeta" size="large" type="text">Expand</x-button> -->
-			<SwitchButton @click="showMeta = !showMeta" />
+			<SwitchButton :show-code="showMeta" @click="showMeta = !showMeta" />
 		</div>
 		<x-folding>
 			<div class="meta" v-show="showMeta">

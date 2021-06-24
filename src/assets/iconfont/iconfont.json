@@ -1,0 +1,30 @@
+{
+  "id": "2577154",
+  "name": "xFrameUI",
+  "font_family": "xfont",
+  "css_prefix_text": "x-icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "21400847",
+      "name": "line-code s（代码s）",
+      "font_class": "code-hide",
+      "unicode": "e6f1",
+      "unicode_decimal": 59121
+    },
+    {
+      "icon_id": "21400856",
+      "name": "line-code s slash（代码s斜杠）",
+      "font_class": "code-show",
+      "unicode": "e6f2",
+      "unicode_decimal": 59122
+    },
+    {
+      "icon_id": "3876518",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    }
+  ]
+}

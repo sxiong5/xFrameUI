@@ -34,7 +34,7 @@ export default class XDragItem extends Vue {
 
 	handleMouseDown(event: MouseEvent) {
 		const clonedNode: HTMLElement = this.$el.cloneNode(true) as HTMLElement;
-		const { offsetHeight, offsetWidth, className } = this.$el as HTMLElement;
+		const { offsetHeight, offsetWidth } = this.$el as HTMLElement;
 		// const margin = getMargin(this.$el as HTMLElement);
 		this.targetPosition = { x: event.clientX - event.offsetX, y: event.clientY - event.offsetY };
 		this.clickPosition = { x: event.clientX, y: event.clientY };
@@ -46,7 +46,7 @@ export default class XDragItem extends Vue {
 		this.dragger.style.top = `${this.targetPosition.y}px`;
 		this.dragger.style.height = `${offsetHeight}px`;
 		this.dragger.style.width = `${offsetWidth}px`;
-		this.dragList.activeClass && (this.dragger.className = `${className} ${this.dragList.activeClass}`);
+		this.dragList.activeClass && this.dragger.classList.add(this.dragList.activeClass);
 
 		this.opacity = 0;
 		document.addEventListener('mouseup', this.handleMouseUp);

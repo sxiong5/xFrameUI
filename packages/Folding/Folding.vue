@@ -17,7 +17,7 @@
  * @property {String} axis 主轴方向
  */
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import { addClass, removeClass, getMP } from '@/utils/dom';
+import { addClass, removeClass, getMP, getCSSPixelValue } from '@/utils/dom';
 import { VNode } from 'vue/types/umd';
 
 @Component({ name: 'XFolding' })
@@ -37,6 +37,7 @@ export default class XFolding extends Vue {
 	protected overflow!: string;
 
 	beforeEnter(el: HTMLElement) {
+		// debugger;
 		if (this.axis === 'y') {
 			el.style.height = '0';
 			el.style.paddingTop = '0';
@@ -55,7 +56,7 @@ export default class XFolding extends Vue {
 			el.style.paddingTop = this.padding.top;
 			el.style.paddingBottom = this.padding.bottom;
 		} else if (this.axis === 'x') {
-			el.style.width = `${el.offsetWidth}px`;
+			el.style.width = `${el.scrollWidth}px`;
 			el.style.paddingLeft = this.padding.left;
 			el.style.paddingRight = this.padding.right;
 		}
@@ -77,17 +78,18 @@ export default class XFolding extends Vue {
 	}
 
 	beforeLeave(el: HTMLElement) {
+		const { top, bottom, left, right } = this.padding;
 		this.overflow = el.style.overflow;
 		if (this.axis === 'y') {
-			el.style.height = `${el.scrollHeight}px`;
-			el.style.paddingTop = this.padding.top;
-			el.style.paddingBottom = this.padding.bottom;
-			// BUG
-			console.log(el.scrollHeight);
+			el.style.height = `${el.scrollHeight - getCSSPixelValue(top) - getCSSPixelValue(bottom)}px`;
+			el.style.paddingTop = top;
+			el.style.paddingBottom = bottom;
+			console.log(el.scrollHeight); // BUG
 		} else if (this.axis === 'x') {
-			el.style.width = `${el.offsetWidth}px`;
-			el.style.paddingLeft = this.padding.left;
-			el.style.paddingRight = this.padding.right;
+			el.style.width = `${el.scrollWidth - getCSSPixelValue(left) - getCSSPixelValue(right)}px`;
+			el.style.paddingLeft = left;
+			el.style.paddingRight = right;
+			console.log(el.scrollWidth); // BUG
 		}
 		el.style.overflow = 'hidden';
 	}
