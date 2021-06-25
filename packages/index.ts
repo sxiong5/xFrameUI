@@ -1,10 +1,7 @@
 import { VueConstructor } from 'vue';
 
-interface _VueConstructor extends VueConstructor {
-	entryName: string;
-}
 interface Component {
-	[prop: string]: unknown;
+	[prop: string]: VueConstructor;
 }
 interface GloablComponent extends Component {
 	install: (Vue: VueConstructor) => void;
@@ -21,9 +18,7 @@ paths.keys().forEach(item => {
 const globalComponents: GloablComponent = {
 	...components,
 	install: (Vue: VueConstructor) => {
-		Object.keys(components).forEach(item =>
-			Vue.component((<_VueConstructor>components[item]).entryName, <VueConstructor>components[item])
-		);
+		Object.keys(components).forEach(item => Vue.component(components[item].entryName, components[item]));
 	}
 };
 
