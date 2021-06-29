@@ -12,7 +12,7 @@ const docs = (): RouteConfig[] => {
 		return {
 			path: convertName(name),
 			name,
-			component: () => import(/* webpackChunkName: "components" */ `@/docs/${name}.md`)
+			component: paths(item).default
 		} as RouteConfig;
 	});
 
