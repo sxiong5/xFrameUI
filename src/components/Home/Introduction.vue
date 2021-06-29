@@ -7,7 +7,7 @@
 				<div class="text-author"><i>@Designed by Shihao Xiong</i></div>
 			</div>
 
-			<x-button class="btn-more" size="large" :type="['round', 'hollow']" :theme="themeOption" feedback>
+			<x-button class="btn-more" size="large" :type="['round', 'hollow']" :theme="themeOption" feedback animation>
 				Get Start
 			</x-button>
 		</div>
@@ -21,7 +21,7 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component({ name: 'Introduction' })
 export default class Introduction extends Vue {
-	themeOption: ButtonThemeOptions = { color: '#3f72af' };
+	themeOption: ButtonThemeOptions = { color: '#3f72af', activeBgColor: '#3f72af', activeColor: '#fff' };
 }
 </script>
 

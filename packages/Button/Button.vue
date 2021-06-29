@@ -1,7 +1,11 @@
 <template>
 	<button
 		class="x-button row-layout"
-		:class="[`x-button--${size}`, ...typeClass, { 'has-feedback': feedback && hasClicked, 'is-disabled': disabled }]"
+		:class="[
+			`x-button--${size}`,
+			...typeClass,
+			{ 'is-feedback': feedback && hasClicked, 'is-animate': animation, 'is-disabled': disabled }
+		]"
 		:style="[themeStyle, { '--x': clickX, '--y': clickY, borderColor }]"
 		:type="nativeType"
 		:disabled="disabled"
@@ -17,7 +21,8 @@
  * @property {String|Array} type 按钮类型 'round' | 'hollow' | 'circle' | 'text'
  * @property {Boolean} disabled 是否禁用
  * @property {String} nativeType 原生type 'button' | 'submit' | 'reset'
- * @property {Boolean} feedback 是否开启点击动画
+ * @property {Boolean} feedback 是否开启点击反馈
+ * @property {Boolean} animation 是否开启悬浮动画
  * @property {String|Object} theme 按钮样式主题
  *
  * @method click 点击事件
@@ -41,6 +46,8 @@ export default class XButton extends Vue {
 	nativeType!: string;
 	@Prop({ type: Boolean, default: false })
 	feedback!: boolean;
+	@Prop({ type: Boolean, default: false })
+	animation!: boolean;
 	@Prop({ type: [String, Object] })
 	theme?: string | ButtonThemeOptions;
 
@@ -136,7 +143,7 @@ export default class XButton extends Vue {
 		padding: 12px 20px;
 		font-size: @font14;
 	}
-	&.has-feedback::after {
+	&.is-feedback::before {
 		position: absolute;
 		content: '';
 		display: block;
@@ -146,6 +153,26 @@ export default class XButton extends Vue {
 		top: var(--y);
 		background: rgba(255, 255, 255, 0.3);
 		animation: ripples 1s ease-out;
+	}
+	&.is-animate {
+		&::after {
+			.size(0);
+			content: '';
+			position: absolute;
+			left: 100%;
+			top: 0;
+			z-index: -1;
+			transition: all 0.3s ease;
+			background-color: var(--activeBgColor, @theme-lblue) !important;
+		}
+		&:hover {
+			color: var(--activeColor, #fff) !important;
+		}
+		&:hover::after {
+			width: 100%;
+			left: 0;
+			transition: width 0.3s ease;
+		}
 	}
 }
 
