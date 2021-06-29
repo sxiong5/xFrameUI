@@ -7,12 +7,9 @@
 				<div class="text-author"><i>@Designed by Shihao Xiong</i></div>
 			</div>
 
-			<div>
-				<x-button class="btn-start" size="large" type="round" feedback :theme="themeOption">Get Start</x-button>
-				<x-button class="btn-more" size="large" :type="['round', 'hollow']" :theme="themeOption" feedback>
-					Learn More
-				</x-button>
-			</div>
+			<x-button class="btn-more" size="large" :type="['round', 'hollow']" :theme="themeOption" feedback>
+				Get Start
+			</x-button>
 		</div>
 		<div></div>
 	</div>
@@ -24,22 +21,11 @@ import { Vue, Component } from 'vue-property-decorator';
 
 @Component({ name: 'Introduction' })
 export default class Introduction extends Vue {
-	themeOption: ButtonThemeOptions = {
-		background: '#35a7c3',
-		color: '#3f72af',
-		activeBgColor: '#35a7c3'
-	};
+	themeOption: ButtonThemeOptions = { color: '#3f72af' };
 }
 </script>
 
 <style lang='less' scoped>
-.list-item {
-	padding: 10px;
-	background: @theme-lblue;
-	& + & {
-		margin-top: 10px;
-	}
-}
 .introduction {
 	.size(100%, auto);
 	.border-box;
@@ -52,11 +38,8 @@ export default class Introduction extends Vue {
 		.size(50%);
 	}
 }
-[class^='x-button'] {
-	font-size: @font30;
-}
 .introduction-text {
-	.flex(column, nowrap, space-around, flex-start);
+	.flex(column, nowrap, space-evenly, flex-start);
 	text-align: left;
 	img {
 		width: 400px;
@@ -67,6 +50,9 @@ export default class Introduction extends Vue {
 	.text-author {
 		color: #c6c9d2;
 		font-size: @font20;
+	}
+	.btn-more {
+		font-size: @font30;
 	}
 }
 </style>

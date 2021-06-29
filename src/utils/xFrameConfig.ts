@@ -5,7 +5,7 @@ export type xFrameTheme = '' | '' | '' | '';
 export type ButtonTypeOptions = 'round' | 'hollow' | 'circle' | 'text';
 
 export interface ButtonThemeOptions {
-	background: string;
+	background?: string;
 	color: string;
 	activeColor?: string;
 	activeBgColor?: string;
