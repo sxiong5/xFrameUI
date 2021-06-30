@@ -5,14 +5,14 @@
 <script lang='ts'>
 import { Vue, Component } from 'vue-property-decorator';
 
-@Component
+@Component({ name: 'Footer' })
 export default class Footer extends Vue {}
 </script>
 
-<style lang='less' scoped>
+<style lang='less'>
 .footer {
-	.size(@h: 120px);
+	.size(@h: 100px);
 	padding: 30px 0;
-	background: fade(@theme-blue, 15);
+	background: @theme-dblue;
 }
 </style>

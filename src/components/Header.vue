@@ -1,20 +1,21 @@
 <template>
-	<header class="home-header">
-		<router-link to="/home">
-			<img class="header-logo" :src="require('@/assets/images/header-logo.png')" />
+	<header class="header">
+		<router-link to="/home" v-slot="{ navigate }" custom>
+			<div role="link" class="header__logo">
+				<img class="header__logo__img" :src="require('@/assets/images/header-logo.png')" @click="navigate" />
+			</div>
 		</router-link>
-		<div class="header-menu">
+		<div class="header__menu">
 			<router-link
 				v-for="menu in menus"
 				:key="menu.text"
 				:class="{ 'is-selected': currentPath === menu.path }"
 				:to="menu.path"
-				class="menu-item"
+				class="menu__item"
 			>
 				{{ menu.text }}
 			</router-link>
 		</div>
-		<div></div>
 	</header>
 </template>
 
@@ -26,8 +27,8 @@ interface HeaderMenu {
 	path: string;
 }
 
-@Component({ name: 'HomeHeader' })
-export default class HomeHeader extends Vue {
+@Component({ name: 'Header' })
+export default class Header extends Vue {
 	menus: HeaderMenu[] = [
 		{ text: 'Home', path: '/home' },
 		{ text: 'Guide', path: '' },
@@ -41,33 +42,60 @@ export default class HomeHeader extends Vue {
 }
 </script>
 
-<style lang='less' scoped>
-.home-header {
-	.size(90%, 50px);
-	.flex(@j: space-between);
-	background: @theme-dblue;
-	padding: 20px 5%;
+<style lang='less'>
+.header {
+	.flex(@j: space-between, @w: wrap);
+	background: white;
+	padding: 20px 0;
 	text-align: center;
-	& > div,
-	& > a {
-		width: calc(100% / 3);
+	.header__logo__img {
+		cursor: pointer;
 	}
-	.header-logo {
-		width: 40%;
-	}
-	.header-menu {
-		.menu-item {
-			color: fade(@theme-white, 50);
+	.header__menu {
+		white-space: nowrap;
+		.menu__item {
+			color: @theme-blue;
 			cursor: pointer;
 			font-size: @font18;
 			text-decoration: none;
 			&:hover,
 			&.is-selected {
-				color: @theme-white;
+				color: @theme-dblue;
 			}
-			& + .menu-item {
+			& + .menu__item {
 				margin-left: 50px;
 			}
+		}
+	}
+}
+@media (min-width: 768px) {
+	.header {
+		.size(@h: 50px);
+		& > div {
+			.size(50%);
+			line-height: 50px;
+		}
+		.header__logo__img {
+			height: 100%;
+		}
+	}
+}
+@media (max-width: 768px) {
+	.header {
+		.size(@h: 70px);
+		& > div {
+			width: 100%;
+			line-height: 25px;
+		}
+		.header__logo {
+			height: 35px;
+			margin-bottom: 10px;
+			&__img {
+				height: 100%;
+			}
+		}
+		.header__menu {
+			height: 25px;
 		}
 	}
 }
