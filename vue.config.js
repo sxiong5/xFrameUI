@@ -12,11 +12,14 @@ module.exports = {
 		}
 	},
 
+	pages: {
+		index: {
+			entry: 'src/main.ts',
+			title: 'xFrame - A Vue.js 2.x UI Lib for Web'
+		}
+	},
+
 	chainWebpack: config => {
-		config.plugin('html').tap(args => {
-			args[0].title = 'xFrame - A Vue.js 2.x UI Lib for Web';
-			return args;
-		});
 		config.module
 			.rule('md')
 			.test(/\.md$/)
