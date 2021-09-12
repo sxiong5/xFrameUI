@@ -23,7 +23,7 @@ branches:
 
 env:
   global:
-    - GH_REF: github.com/shihaoxiong/myLibrary.git
+    - GH_REF: github.com/ShihaoXiong/xFrameUI
     - GH_TOKEN: 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
     - P_BRANCH: gh-pages
     - U_EMILE: shihao.xiong@icloud.com
