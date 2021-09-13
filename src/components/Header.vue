@@ -19,7 +19,7 @@
 	</header>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 
 interface HeaderMenu {
@@ -42,10 +42,9 @@ export default class Header extends Vue {
 }
 </script>
 
-<style lang='less'>
+<style lang="less">
 .header {
 	.flex(@j: space-between, @w: wrap);
-	background: white;
 	padding: 20px 0;
 	text-align: center;
 	.header__logo__img {

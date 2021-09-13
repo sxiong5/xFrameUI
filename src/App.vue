@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
-		<Header />
-		<router-view />
+		<Header style="z-index: 10" />
+		<router-view style="z-index: 10" />
 	</div>
 </template>
 
